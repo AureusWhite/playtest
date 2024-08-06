@@ -1,0 +1,13 @@
+Perk: Bookworm
+
+Description:
+The "Bookworm" perk transforms your character into a voracious reader with a deep-seated love for literature. This perk is tailored for those who find solace and advantage in the written word.
+
+Effects:
+
+    Starts with Read and Write Abilities: Unlike other children, your character begins with the ability to read and write. This gives you an edge in intellectual tasks and interactions.
+    Reading to Others Increases Reputation: Sharing knowledge through reading aloud enhances your character’s reputation, endearing them to others and fostering positive social connections.
+    Faster Skill Leveling through Reading: Engaging with literature related to various skills accelerates your character’s progression in those areas, reflecting the benefits of dedicated study.
+
+Gameplay Impact:
+This perk suits players who enjoy intellectual pursuits and want to leverage their literary skills for both social and academic advantages. It opens opportunities for gaining reputation and advancing skills through knowledge.

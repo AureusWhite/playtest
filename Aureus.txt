@@ -1,0 +1,7 @@
+Player Name: Aureus
+Description: A girl
+Stats: {stress=55, luck=55, thirst=55, social=55, level=55, emotional=55, learning=55, fineMotor=55, experience=55, hunger=55, grossMotor=55, fatigue=55, money=55, imgenation=55, resilience=55}
+Perk: Shy
+Inventory: []
+NPCs: []
+Room: beavers.Room@380fb434

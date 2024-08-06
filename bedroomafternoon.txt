@@ -1,0 +1,6 @@
+Room Name: bedroom
+Description: The younger rejuves nap at all times of the day, various signs indicate that this bedroom is for sleeping and to proceeed to
+the main room to play to "anything noisy or raucous". 
+Time of Day: afternoon
+
+Objects in Room:

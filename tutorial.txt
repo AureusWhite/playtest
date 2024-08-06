@@ -1,0 +1,56 @@
+Welcome to R.A.W.R, a text-based adventure game. Before we embark on this journey, we need to gather some important details about you.
+Your Name
+
+Your name is a vital part of your identity. It’s unique and special, and it represents who you are. Choose any name you wish; it will be your signature throughout this adventure.
+Your Age
+
+Age plays a crucial role in this game, influencing your abilities and playstyle. Select an age range that suits you best:
+
+    Babies and Toddlers: Choosing to start as a baby or toddler places you in the earliest stages of childhood. 
+        Your movement and abilities will be significantly limited, reflecting the natural constraints of very young children. However, this age range also affords you a remarkable degree of freedom within the boundaries set for you. People around you are more forgiving of your mistakes and missteps, often stepping in to assist you. This age range offers a unique experience of exploration and discovery, with the world appearing vast and filled with endless possibilities.
+
+    Preschool Aged: Opting for the preschool age range provides a balanced experience, offering a mix of freedom and developing abilities. 
+        At this age, you possess a budding independence while still enjoying the nurturing and supportive environment that encourages growth. You can engage in a variety of activities, from simple games to early learning tasks. This age range is often considered the optimal starting point, as it combines the best of both worlds: the innocence and wonder of early childhood with the emerging skills and autonomy that make gameplay dynamic and engaging.
+
+    Older Children: Selecting the older children age range grants you additional skill points right from the start.
+         enhancing your abilities and giving you a head start in various aspects of the game. Your Personal Autonomy (P.A.) score is higher, reflecting your increased capacity for independence and responsibility. This score will unlock more complex tasks and leadership opportunities, allowing you to take on significant roles within the game's narrative. As an older child, you will have access to a wider range of activities and responsibilities, making your journey more intricate and rewarding. Your interactions with others will also be more nuanced, as you balance your growing maturity with the playful spirit of childhood.
+
+Your Perk
+
+Select a perk from the list provided. Each perk offers unique advantages and influences your interactions and abilities. Here’s a detailed explanation of each perk:
+
+    Shy: As a shy individual, you tend to avoid the spotlight. This perk increases your Social stat, making interactions smoother with shorter dialogs and less time spent on small talk.
+         You find comfort in fewer but meaningful interactions.
+
+    Tea Party Host: You have a natural talent for entertaining guests.
+         Hosting tea parties and similar gatherings boosts relevant skills by an impressive 50%. Your charm and organizational skills shine in social settings.
+
+    Brat: Despite being a good-hearted individual, you are often misunderstood.
+         Your bratty behavior can be endearing to some and irritating to others. This perk adds complexity to your social interactions, making them unpredictable and lively.
+
+    Bookworm: You have a profound love for reading. Starting with the ability to read and write.
+        You immerse yourself in books, gaining knowledge and insight. Your intellectual pursuits give you an edge in academic challenges.
+
+    Rebel: You admire the resistance and its leaders, aligning yourself with their cause.
+         Beginning as a member of RAWR, you possess a rebellious spirit and a strong sense of justice. This perk influences your decisions and alliances.
+
+    Teacher's Pet: You excel in environments where positive reinforcement is abundant.
+         Your dedication to pleasing authority figures translates into better test scores and favorable evaluations. You thrive on praise and recognition.
+
+    Class Clown: Your sense of humor brings joy to those around you, often lightening the mood.
+         However, your antics might not always be well-timed. This perk makes you a beloved figure among peers, but it requires careful navigation of social situations.
+
+    Slacker: You prefer a laid-back approach to life. With minimal effort, you manage to get by without drawing much attention.
+         This perk allows you to maintain a low profile, focusing on personal interests rather than external pressures.
+
+    Popular: Your sociable nature and likability make you a central figure in social circles.
+         Gathering support and forming alliances come naturally to you. This perk enhances your ability to connect with others and rally them to your cause.
+
+    Outcast: This is not a selectable perk but one that you might earn if your reputation declines significantly.
+         As an outcast, you face unique challenges and opportunities, navigating the world with a distinct perspective.
+
+    Geek: Your passion for science drives you forward.
+         A life dedicated to the pursuit of knowledge, you excel in scientific endeavors and intellectual challenges. This perk reflects your commitment to learning and discovery.
+
+    Confederate: You are a rejuve who previously worked as a member of the clinical staff.
+         Your role is to observe impartially, bringing a unique perspective to the game. This perk provides insights and access to areas others might not have.

@@ -1,0 +1,4 @@
+Room Name: Room
+Description: This is a room.
+Time of Day: morning
+Optional: This is an optional field.

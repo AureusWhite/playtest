@@ -1,0 +1,13 @@
+Perk: Shy
+
+Description:
+Embracing the "Shy" perk endows your character with a unique approach to social interactions. This perk is designed for those who prefer to stay out of the limelight, focusing on deeper, more meaningful interactions rather than frequent social engagements.
+
+Effects:
+
+    Increases Social Stat by 10: Your character’s ability to navigate social situations is enhanced, allowing for smoother interactions.
+    Opens New Dialog Options: Unique conversation paths become available, reflecting your character’s reserved nature. These options are tailored to facilitate meaningful dialogue without the need for extensive small talk.
+    Reduces Reputation Loss for Social Faux Pas: Mistakes in social settings have less impact on your character’s reputation. The forgiving nature of interactions helps mitigate the negative effects of minor blunders.
+
+Gameplay Impact:
+This perk is ideal for players who prefer a quieter approach to social dynamics, focusing on quality over quantity in interactions. It allows you to build relationships gradually and avoid the pitfalls of frequent social errors.

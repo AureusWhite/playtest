@@ -1,0 +1,5 @@
+Room Name: foyer
+Description: The skylight is just barely beating out the lightbulbs and casts strange shadows as they clash on the brightly painted floor
+Time of Day: morning
+
+Objects in Room:

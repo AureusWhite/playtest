@@ -1,0 +1,7 @@
+Room Name: kitchen
+Description: You step into the kitchen and it's like another world in there, susy the sou chef makes her presence known by both delegating
+and doing more than her share of actual work. It won't be long before she notices your here and if your not busy or don't belong here she 
+pitches you out.
+Time of Day: morning
+
+Objects in Room:

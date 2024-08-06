@@ -1,0 +1,6 @@
+Room Name: bedroom
+Description: Only the asle lights lead to the bathroom and a small offshoot for the on call researcher's office. On the door to their office has a sign
+"Have you spoken to your prefect?" under that reads "Please have their report on hand when making any requests."
+Time of Day: night
+
+Objects in Room:

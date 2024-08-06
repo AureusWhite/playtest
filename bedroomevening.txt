@@ -1,0 +1,5 @@
+Room Name: bedroom
+Description: The younger rejuves are in bed by now and only the older rejuves lights are still on. 
+Time of Day: evening
+
+Objects in Room:

@@ -1,0 +1,12 @@
+Perk: Outcast
+
+Description:
+The "Outcast" perk is a unique, situational perk available to those who consistently choose anti-social dialogue options. It represents a character who exists on the fringes of social circles.
+
+Effects:
+
+    Blocks Some Dialog Options: Certain conversation paths become inaccessible, reflecting your character’s more isolated stance.
+    Locks Out of Higher-Level Social Perks: As an outcast, you are barred from accessing advanced social perks, affecting your ability to influence or connect with others at higher levels.
+
+Gameplay Impact:
+This perk offers a distinct experience for players who prefer to explore anti-social or solitary gameplay paths. It provides a unique perspective and challenge, focusing on a more isolated approach to interactions.

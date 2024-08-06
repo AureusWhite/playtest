@@ -1,0 +1,12 @@
+Perk: Rebel
+
+Description:
+The "Rebel" perk aligns your character with the resistance movement from the outset. This perk is perfect for players who are eager to engage in revolutionary activities and advocate for change.
+
+Effects:
+
+    Opens Rebel Dialog from the Beginning: You gain immediate access to conversations and choices related to the rebellion. This sets the stage for a rebellious narrative and aligns your character with the cause from the start.
+    Locks Faction Choice: Once you select this perk, you are committed to the rebel faction, RAWR. You cannot later change to the Confederate faction, reflecting your unwavering commitment to the resistance.
+
+Gameplay Impact:
+This perk provides a clear path for players interested in a rebellious storyline, with early access to resistance-related content and the inability to switch factions. It’s ideal for those who want a dedicated focus on the revolutionary cause.

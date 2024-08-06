@@ -1,0 +1,5 @@
+Room Name: bathroom
+Description: The faint glow of the hallway light only lets you see enough to reach the light switch, only if it worked.
+Time of Day: night
+
+Objects in Room:

@@ -1,0 +1,12 @@
+Perk: Slacker
+
+Description:
+The "Slacker" perk offers a laid-back approach to life, allowing your character to navigate the game with minimal effort. This perk is designed for those who prefer to take things easy and avoid heavy responsibilities.
+
+Effects:
+
+    Allows Less Effort and Fewer Quests: Your character can complete fewer quests and responsibilities, reflecting a relaxed attitude toward tasks.
+    Reputation Gains are Halved: While your character can maintain a low profile, their reputation gains are reduced by half. Reputation losses remain unchanged, reflecting a balanced approach to social interactions.
+
+Gameplay Impact:
+This perk is ideal for players who want to focus on personal interests and avoid the pressure of frequent responsibilities. It provides a more relaxed gameplay experience with a focus on maintaining a low-key presence.
