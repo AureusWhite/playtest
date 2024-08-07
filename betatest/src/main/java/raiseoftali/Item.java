@@ -76,7 +76,10 @@ public class Item {
         if(this.type.equalsIgnoreCase("toy")) {
             return "You played with the " + this.name;
         }else{
-            return "You can't play with the " + this.name;
+            game.getPlayer().setExperience(game.getPlayer().getExperience() + 1);
+            game.getPlayer().setResilience(slot);
+            return this.name + "isn't very fun to play with";
+            
         }
         
     }

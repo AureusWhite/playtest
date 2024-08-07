@@ -26,7 +26,7 @@ public class Game {
         this.room = new Room(game);
         room.buildRooms(game);
         room.generateItems();
-
+        readFile("intro1");
     }
     public void nap() {
         player.nap();
@@ -38,13 +38,12 @@ public class Game {
         return gui;
     }
     public void startGame() {
-        readFile("intro1");
+        gui.printToJTextArea(gui.getjTextArea(), Game.readFile("intro1"));
         player.setUp();
-        readFile("intro2");
-        player.setCurrentRoom(room.getRoomByName("bedroom"));
+        gui.printToJTextArea(gui.getjTextArea(), Game.readFile("intro2"));
 
     }
-    public String readFile(String fileName) {
+    public static String readFile(String fileName) {
         StringBuilder sb = new StringBuilder();
         try {
             File file = new File(fileName.concat(".txt"));
@@ -74,7 +73,7 @@ public class Game {
     public void setPlayer(Player player) {
         this.player = player;
     }
-    public GUI getGui() {
+    public synchronized  GUI getGui() {
         return gui;
     }
     public void setGui(GUI gui) {

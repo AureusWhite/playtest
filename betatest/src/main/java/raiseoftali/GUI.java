@@ -166,7 +166,7 @@ playButton.setBorder(new LineBorder(Color.BLACK, 2));
 
     // Add action listeners
 playButton.addActionListener(e -> {
-        String[] inventory = this.player.getCurrentRoom().getInventory();
+        String[] inventory = player.getCurrentRoom().getInventory();
         ImageIcon playIcon = new ImageIcon("play.png");
         String selectedItem = (String) JOptionPane.showInputDialog(
             null,
@@ -222,9 +222,8 @@ moveButton.addActionListener(new ActionListener() {
             
             if (selectedExit != null) {
                 // Handle the selected exit
-                System.out.println("Selected exit: " + selectedExit);
                 player.setCurrentRoom(player.getCurrentRoom().getExit(selectedExit));
-                game.getGUI().printToJTextArea(jTextArea, game.readFile(selectedExit));
+                game.getGUI().printToJTextArea(jTextArea, Game.readFile(selectedExit));
                 moveSuccessful = true;
                 if (!moveSuccessful) {
                     System.out.println("There is no exit in that direction.");
@@ -415,7 +414,7 @@ public JTextField getjTextFeild() {
 public JTextArea getjTextArea() {
         return jTextArea;
     }
-public String getInput(){
+public synchronized  String getInput(){
         String input = jTextFeild.getText();
         jTextFeild.setText("");
         return input;
@@ -433,6 +432,7 @@ public void waitForInput() {
     this.setVisible(true);
 }
 public void printToJTextArea(JTextArea jTextArea2, String message) {
+    player.updateStatus();
 jTextArea.append(message + "\n");
 jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
     

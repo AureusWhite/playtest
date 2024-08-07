@@ -44,20 +44,4 @@ public class Clock {
     public void setTime(int time) {
         this.time = time;
     }
-
-    void setGame(Game aThis) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    void setPlayer(Player player) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    void setRoom(Room room) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    void setGUI(GUI gui) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

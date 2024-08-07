@@ -6,12 +6,12 @@
 package raiseoftali;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Room {
     private Game game;
     private Clock clock;
+    private final ArrayList<Room> rooms;
     public Clock getClock() {
         return clock;
     }
@@ -21,7 +21,7 @@ public class Room {
     public Game getGame() {
         return game;
     }
-    public  Room recoveryRoom;
+    public static  Room recoveryRoom;
     public  Room kitchen;
     public  Room mainRoom;
     public  Room dorms;
@@ -170,6 +170,7 @@ public class Room {
             this.npcs = new ArrayList<>();
             this.exits = new HashMap<>();
             this.inventory = new ArrayList<>();
+            this.rooms = new ArrayList<>();
 
         }
         public String getDescription() {
@@ -319,7 +320,6 @@ if(this.inventory!=null) {
         }
         public  void buildRooms(Game game){
             recoveryRoom = new Room(game);
-            game.player.setCurrentRoom(recoveryRoom);
             cubbies = new Room(game);
             dramaArea = new Room(game);
             changingRoom = new Room(game);
@@ -633,7 +633,7 @@ if(this.inventory!=null) {
                 Equipment diaper = new Equipment("Diaper", "A plain white diaper, this diaper is avalible in all sizes. In the dorms or changing rooms throughout the BusyBeavers Home For Wayward Rejuves you can find a diaper changing station with a variety of sizes.", 2, description);
                 Item plasticknife = new Item("Plastic Knife", "A plastic knife, this knife is used for cutting food in the cafeteria. The knife is avalible in the cafeteria.", "tool",game); 
                     Item rubberspoon = new Item("Rubber Spoon", "A rubber spoon, this spoon is used for eating food in the cafeteria. The spoon is avalible in the cafeteria.", "tool",game);
-                    Item schoolbook = new Item("A guide for the newly rejuvenated", "A book containig advice for those who are in their first cycle.", "Book",game);
+                    Item schoolbook = new Item("A guide for the newly rejuvenated", "A book containig advice for those who are in their first cycle.", "toy",game);
                     Item schoolbook2 = new Item("Stroies from under the bus", "A book containig stories from the residents of the BusyBeavers Home For Wayward Rejuves.", "Book",game); 
                     Item schoolbook3 = new Item("Welcome to BusyBeavers!", "A book containig the history of the BusyBeavers Home For Wayward Rejuves.", "Book",game);
                     Item shinyPenny = new Item("Shiny Penny", "A shiny penny, this penny is used for making wishes in the fountain. The penny is a reward given for good behaviour", "money",game);
@@ -818,7 +818,7 @@ if(this.inventory!=null) {
         }
         return null;
     }
-    private ArrayList<Room> getRooms() {
-        return new ArrayList<>(Arrays.asList(recoveryRoom, kitchen, mainRoom, dorms, bathroom, hallway, stairs, basement, attic, garage, garden, driveway, frontYard, backYard, shed, pool, patio, deck, porch, balcony, roof, cubbies, dramaArea, changingRoom, floorPlay, quietArea, homeWorkArea, playHouse, treeHouse, storyBookVillage, pillowPile, snackArea, greenHall, blueHall, redHall, peddleToys, lemonaidStand, toolShed, TRSRoom, janitorialRoom, foyer, pantry));
+    public ArrayList<Room> getRooms() {
+        return rooms;
     }
 }
