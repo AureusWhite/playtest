@@ -2,7 +2,6 @@
 package raiseoftali;
 
 public class Equipment extends Item{
-
     private int slot;
     private String type;
     @Override
@@ -31,5 +30,4 @@ public class Equipment extends Item{
     public void setSlot(int slot) {
         this.slot = slot;
     }
-
 }

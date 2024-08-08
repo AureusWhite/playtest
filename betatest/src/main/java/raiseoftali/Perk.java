@@ -6,17 +6,13 @@ public class Perk {
     private int cost;
     private int level;
     private int maxLevel;
-
     private boolean active;
-
-
     public Perk(String name, String description, int cost, int maxLevel) {
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.maxLevel = maxLevel;
         this.level = 0;
-
         this.active = false;
     }
     public void activate() {
@@ -25,7 +21,6 @@ public class Perk {
     public void deactivate() {
         this.active = false;
     }
-
     public String getDescription() {
         return this.description;
     }
@@ -38,11 +33,9 @@ public class Perk {
     public int getMaxLevel() {
         return this.maxLevel;
     }
-
     public boolean isActive() {
         return this.active;
     }
-
     public String getName() {
         return this.name;
     }
@@ -64,5 +57,4 @@ public class Perk {
     public void setMaxLevel(int maxLevel) {
         this.maxLevel = maxLevel;
     }
-
     }

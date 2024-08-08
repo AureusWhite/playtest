@@ -10,11 +10,9 @@ public class NPC {
     private final  ArrayList<Item> inventory;
     public Item setQuestItem;
     private Game game;
-
     public Game getGame() {
         return game;
     }
-
     public NPC(String name, String description, String type) {
         this.name = name;
         this.description = description;
@@ -23,11 +21,9 @@ public class NPC {
         Item trash = new Item("Trash", "A piece of trash", "trash", game);
         this.addItem(trash); 
     }
-
     private void addItem(Item trash) {
         this.inventory.add(trash);
     }
-
     public String getDescription() {
         return description;
     }
@@ -47,8 +43,7 @@ public class NPC {
         this.type = type;
     }
     public String interact(Player player) {
-        return "Blargh";
-    
+        return "Blargh";  
     }
     public void dialog(Player player) {
         this.questItem = new Item("Trash", "A piece of trash", "trash", game);
@@ -72,12 +67,18 @@ public class NPC {
            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "I have no quest for you.");
         }
     }
-
     public void setQuest(Quests quest) {
         this.quest = quest;
 
     }
     public Quests getQuest() {
         return quest;
+    }
+    public void returnGoldStars(Player player) {
+        player.getArrayInventory().remove(player.getItemByName("Gold Star"));
+        player.addExperience(100);
+        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have given me a Gold Star!");
+        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have gained 100 experience points!");
+
     }
 }

@@ -10,20 +10,15 @@ public class Game {
     Player player;
     private  Clock clock;
     private  GUI gui;
-    private  Room room;
-    public void setClock(Clock clock) {
-        this.clock = clock;
-    }
-    public Clock getClock() {
-        return clock;
-    }
+    private static Room room;
+
     public Game() {
         Game game = this;
         this.player = new Player(game);
         player.setGame(game);
         this.gui = new GUI(game, player);
         this.clock = new Clock(game);
-        this.room = new Room(game);
+        Game.room = new Room(game,"room");
         room.buildRooms(game);
         room.generateItems();
         readFile("intro1");
@@ -33,6 +28,7 @@ public class Game {
     }
     public void dialog(String selectedNPC) {
         player.dialog(selectedNPC);
+        endTurn();
     }
     public GUI getGUI() {
         return gui;
@@ -83,8 +79,21 @@ public class Game {
         return room;
     }
     public void setRoom(Room room) {
-        this.room = room;
+        Game.room = room;
     }
+    public void setClock(Clock clock) {
+        this.clock = clock;
+        }
+        public Clock getClock() {
+            return clock;
+        }
+        public void endTurn(){
+            this.moveTime(5);
+            player.setHunger(player.getHunger() + -4);
+            player.setThirst(player.getThirst() + -4);
 
-    }
-    
+        }
+
+            
+}
+
