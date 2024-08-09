@@ -15,7 +15,8 @@ public class Game {
     public Game() {
         Game game = this;
         this.player = new Player(game);
-        player.setGame(game);
+        this.player.setGame(game);
+        this.player.setCurrentRoom(Room.recoveryRoom);
         this.gui = new GUI(game, player);
         this.clock = new Clock(game);
         Game.room = new Room(game,"room");

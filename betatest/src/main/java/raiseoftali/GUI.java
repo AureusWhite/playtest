@@ -121,7 +121,7 @@ protected void configureScrollBarColors() {
     moveButton.setFont(new Font("Arial", Font.BOLD, 16));
     dialogButton = new JButton("Dialog");
     dialogButton.setFont(new Font("Arial", Font.BOLD, 16));
-    inspectButton = new JButton("Inspect");
+    inspectButton = new JButton("Interact");
     inspectButton.setFont(new Font("Arial", Font.BOLD, 16));
     inventoryButton = new JButton("Inventory");
     inventoryButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -297,11 +297,11 @@ dialogButton.addActionListener(e -> {
     });
 inspectButton.addActionListener(e -> {
         String[] inventory = this.player.getCurrentRoom().getInventory();
-        ImageIcon inspectIcon = new ImageIcon("Inspect.png");
+        ImageIcon inspectIcon = new ImageIcon("Interact.png");
         String selectedItem = (String) JOptionPane.showInputDialog(
             null,
             "Choose an item:",
-             "Inspect",
+             "Interact",
               JOptionPane.QUESTION_MESSAGE,
                inspectIcon,
                 inventory,
@@ -309,15 +309,15 @@ inspectButton.addActionListener(e -> {
                 );
         if (selectedItem != null) {
             switch(selectedItem) {
-                case "Snack Dispenser" -> {
+                case "Snack Dispenser", "Art Supplies" -> {
                     Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
                     this.player.useItem(item);
                     printToJTextArea(game.getGUI().getjTextArea(), "You used the " + item.getName());
                 }
                 default -> {
                     Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
-                    this.player.inspect("inspect");
-                    printToJTextArea(game.getGUI().getjTextArea(), "You inspected the " + item.getName());
+                    this.player.useItem(item);
+                    printToJTextArea(game.getGUI().getjTextArea(), "You interacted with the " + item.getName());
                 }
                 
             }
@@ -347,35 +347,19 @@ inventoryButton.addActionListener(e -> {
                 options,
                 options[0]
             );
+            Item item = this.player.getItemByName(selectedItem);
             switch (action) {
                 case 0 ->                     {
-                        Item item = this.player.getItemByName(selectedItem);
-                        switch (item.getType()) {
-                            case "equipment" -> {
-                                Equipment equipment = (Equipment) item;
-                                this.player.equip(equipment, equipment.getSlot());
-                                printToJTextArea(game.getGUI().getjTextArea(),"You equipped the " + item.getName());
-                                printToJTextArea(game.getGUI().getjTextArea(), getEquips());
-                            }
-                            case "toy" -> this.player.play(item);
-                            default -> this.player.useItem(item);
-                        }                          }
+                        item.use(player);
+                                                  }
                 case 1 ->                     {
-                        this.player.inventory(selectedItem);
-                        Item item = this.player.getItemByName(selectedItem);
-                        this.player.dropItem(item);
+                    this.player.dropItem(item);
                     }
                 case 2 ->{
-                        this.jTextArea.append("This happened!");
-                        this.player.inventory(selectedItem);
-                        Item item = this.player.getItemByName(selectedItem);
                         this.player.throwAway(item, this.player.getCurrentRoom().getItemByName("Trash Can"));
-                        this.jTextArea.append("This happened!");
                         
                     }
                     case 3 -> {
-                        this.player.inventory(selectedItem);
-                        Item item = this.player.getItemByName(selectedItem);
                         if (item != null) {
                             Item[] containers = this.player.getCurrentRoom().getContainers();
                             if (containers != null && containers.length > 0) {
@@ -410,8 +394,7 @@ inventoryButton.addActionListener(e -> {
 
 
 takeButton.addActionListener(e -> {
-        Room currentRoom = player.getCurrentRoom();
-        String[] itemarray = getNonNullItemNames(currentRoom);
+        String[] itemarray = getNonNullItemNames();
         ImageIcon takeIcon = new ImageIcon("Take.png");
         System.out.println("Available items: " + Arrays.toString(itemarray));
         
@@ -525,9 +508,9 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
             return equips;
         }
 
-        private String[] getNonNullItemNames(Room room) {
-            List<Item> items = (List<Item>) player.currentRoom.getListItems();
-            return items.stream()
+        private String[] getNonNullItemNames() {
+            List<Item> itemN = (List<Item>) player.currentRoom.getListItems();
+            return itemN.stream()
                     .filter(Objects::nonNull)
                     .map(Item::getName)
                     .toArray(String[]::new);

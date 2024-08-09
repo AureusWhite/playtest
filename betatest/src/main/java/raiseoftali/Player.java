@@ -4,16 +4,10 @@ import java.util.ArrayList;
 public class Player {
 
     private int thirst;
-    int getHunger() {
-        return this.hunger;
-    }
-
-    int getThirst() {
-        return this.thirst;
-    }
-
+    private int bladder;
     public Room room;
     private ArrayList<Item> inventory;
+
     private ArrayList<Quests> quests;
     private final String[] CRAFT;
     private int[] SMILE;
@@ -27,7 +21,7 @@ public class Player {
     private String optional;
     private int level;
     private int age;
-    Game game;
+    public Game game;
     public Item animalCrackerBox;
     public Item puddle;
     public Quests currentQuest;
@@ -36,12 +30,6 @@ public class Player {
     private int maturity;
     private Item container;
     private int hunger;
-    public Item getContainer() {
-        return container;
-    }
-    public void setContainer(Item container) {
-        this.container = container;
-    }
     private boolean agePicked;
     public Room currentRoom;
     public Player(Game game) {
@@ -70,12 +58,18 @@ public class Player {
         animalCrackerBox.setTakeable(true);
         this.inventory.add(animalCrackerBox);
     }
-public void setQuest(Quests quest) {
-    this.quests.add(quest);
-}
-public void removeQuest(Quests quest) {
-    this.quests.remove(quest);
-}
+    public Item getContainer() {
+        return container;
+    }
+    public void setContainer(Item container) {
+        this.container = container;
+    }
+    public void setQuest(Quests quest) {
+        this.quests.add(quest);
+    }
+    public void removeQuest(Quests quest) {
+        this.quests.remove(quest);
+    }
 public int[] getSMILE() {
     return SMILE;
 }
@@ -85,16 +79,16 @@ public void setSMILE(int[] sMILE) {
 public ArrayList<Quests> getQuests() {
     return quests;
 }
-    public void setQuests(ArrayList<Quests> quests) {
-        this.quests = quests;
-    }  
-    public void takeItem(Item item) {
-        if(item.isTakeable()){
-        inventory.add(item);
-        this.currentRoom.removeItem(item);
-    }else {
-        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't take that item.");
-    }
+public void setQuests(ArrayList<Quests> quests) {
+    this.quests = quests;
+}
+public void takeItem(Item item) {
+    if(item.isTakeable()){
+    inventory.add(item);
+    this.currentRoom.removeItem(item);
+}else {
+    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't take that item.");
+}
 }
     public void dropItem(Item item) {
         if(item.getName().equals("ID")) {
@@ -103,7 +97,7 @@ public ArrayList<Quests> getQuests() {
         inventory.remove(item);
         this.currentRoom.addItem(item);
     }
-    }
+    }  
     public String[] getInventory() {
         String[] inventoryArray = new String[inventory.size()];
         for(int i = 0; i < inventory.size(); i++) {
@@ -144,18 +138,15 @@ return this.experience;
     public String getDescription() {
         return this.description;
     }
-public void dialog(String npcName) {
-
-}
+    public void dialog(String npcName) {
+    
+    }
     public String inspect(String selectedItem) {
         return this.getItemByName(selectedItem).getDescription();
     }
-    public void inventory(String selectedItem) {
-        this.getItemByName(selectedItem);
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+public void setName(String name) {
+    this.name = name;
+}
     public void setMoney(int money) {
         this.money = money;
     }
@@ -176,7 +167,7 @@ public void dialog(String npcName) {
                     }
                 }
             }
-                    public void setPerks(ArrayList<Perk> perks) {
+    public void setPerks(ArrayList<Perk> perks) {
             this.perks = perks;
         }
     public void setExperience(int experience) {
@@ -204,7 +195,6 @@ public void dialog(String npcName) {
         return this.resilience;
     }
     public synchronized void setUp() {
-        this.currentRoom = Room.recoveryRoom;
      game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),"What is your name?");
       game.getGUI().waitForInput();
          this.name =game.getGUI().getInput();
@@ -233,7 +223,7 @@ public void dialog(String npcName) {
             perkpicked = false;
             perkPicker();
             this.equipUniform();   
-            }        
+            }
     public void tantrum() {
         game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),"You threw a tantrum, got tired, and fell asleep.");
         this.nap();
@@ -248,13 +238,13 @@ public void dialog(String npcName) {
             time = 5;
         }
         game.moveTime(time);
-    }
+    }        
     public Item getItem(Item item2) {
         return item;
     }
     public void setItem(Item item) {
         this.item = item;
-    }   
+    }
     public ArrayList<Perk> getPerks() {
         return perks;
     }
@@ -279,7 +269,7 @@ public void dialog(String npcName) {
         
     }
     game.getGUI().printToJTextArea(null, "No further perks unlocked.");
-}
+}   
     public String getOptional() {
         return optional;
     }
@@ -353,84 +343,6 @@ public void dialog(String npcName) {
             }
         }
     }
-    Item getItemByName(String itemName) {
-        for(Item items : inventory) {
-            if(items.getName().equals(itemName)) {
-                return items;
-            }
-        }
-        return null;    
-    }
-    ArrayList<Item> getArrayInventory() {
-        return this.inventory;
-    }
-    private void generatePerks() {
-        Perk brat   = new Perk("Brat", "You’re a brat, plain and simple. Your antics make teachers sigh and classmates roll their eyes, but there's no denying you add a bit of chaotic fun to the day.\n", 0, 1);
-        Perk cute  = new Perk("Cute", "You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk classClown = new Perk("Class Clown", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk geek = new Perk("Geek", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
-        Perk outcast = new Perk("Outcast", "You’re the outcast, the loner, the one who doesn’t quite fit in. But that’s okay, because you’ve got your own unique style and a rebellious spirit that sets you apart from the crowd.\n", 0, 1);
-        Perk teacherPet = new Perk("Teacher's Pet", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
-        Perk slacker = new Perk("Slacker", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk shy = new Perk("Shy", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);   
-        Perk smart = new Perk("Smart", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk goodkid = new Perk("Good", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
-        Perk rebel = new Perk("Rebel", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
-        Perk bully = new Perk("Bully", "You’ve got a tough exterior and a knack for getting what you want, even if it means stepping on a few toes. Others might find you intimidating, but deep down, everyone has their reasons.\n", 0, 1);
-        Perk nerd = new Perk("Nerd", "Books, gadgets, and games are your world. You’re the go-to for all things geeky, and your passion for learning makes you stand out as a true nerd.\n", 0, 1);
-        Perk confederate = new Perk("Confederate", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
-        Perk rascal = new Perk("Rascal", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
-        Perk angel = new Perk("Angel", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
-        Perk rogue = new Perk("Rogue", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
-        Perk troublemaker = new Perk("Troublemaker", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
-        Perk sweetheart =   new Perk("Sweet Heart", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk comedian = new Perk("Comedian", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk brainiac = new Perk("Brainiac", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
-        Perk spy = new Perk("Spy", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
-        Perk sloth = new Perk("Sloth", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk introvert = new Perk("Introvert", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
-        Perk genius = new Perk("Genius", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk valedictorian = new Perk("Valedictorian", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
-        Perk lazy = new Perk("Lazy", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk jester = new Perk("Jester  ", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk adorable = new Perk("Adorable", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk braniac = new Perk("Braniac", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk hermit = new Perk("Hermit", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
-        this.perks.add(spy);
-        this.perks.add(sloth);
-        this.perks.add(brainiac);
-        this.perks.add(comedian);
-        this.perks.add(sweetheart);
-        this.perks.add(troublemaker);
-        this.perks.add(angel);
-        this.perks.add(rogue);
-        this.perks.add(valedictorian);
-        this.perks.add(genius);
-        this.perks.add(introvert);
-        this.perks.add(lazy);
-        this.perks.add(confederate);
-        this.perks.add(nerd);
-        this.perks.add(jester);
-        this.perks.add(adorable);
-        this.perks.add(rebel);
-        this.perks.add(braniac); 
-        this.perks.add(brat);
-        this.perks.add(cute);
-        this.perks.add(smart);
-        this.perks.add(goodkid);
-        this.perks.add(bully);
-        this.perks.add(classClown);
-        this.perks.add(geek);
-        this.perks.add(outcast);
-        this.perks.add(teacherPet);
-        this.perks.add(slacker);
-        this.perks.add(shy);
-        this.perks.add(rascal);
-        this.perks.add(hermit);
-    }
-    private int getLevel() {
-return this.level;
-    }
     public Perk getPerkByName(String input) {
         for(Perk perk : getPerks()) {
             if(perk.getName().equals(input)) {
@@ -438,21 +350,6 @@ return this.level;
             }
         }
         return null;
-    }
-    private void listPerks() {
-        for(Perk perk : perks) {
-           game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),perk.getName() + ": " + perk.getDescription());
-        }
-    }
-    private String slotWord(int index) {
-        return switch (index) {
-            case 0 -> "Head: ";
-            case 1 -> "Chest: ";
-            case 2 -> "Undies: ";
-            case 3 -> "Pants: ";
-            case 4 -> "Shoes: ";
-            default -> "Unknown: ";
-        };
     }
     public Item getItem() {
         return item;
@@ -509,19 +406,6 @@ return this.level;
     }
     public Room getCurrentRoom() {
         return this.currentRoom;
-    }
-
-    void setCurrentRoom(Room room) {
-        this.currentRoom = room;
-    }
-    void putItem(Item item, Item containerByName) {
-        containerByName.addItem(item);
-        this.inventory.remove(item);
-    }
-
-    void throwAway(Item item, Item containerByName) {
-        this.inventory.remove(item);
-        containerByName.addItem(item);
     }
     public void upgrade(Perk perk2) {
         switch(perk2.getName()){
@@ -787,15 +671,69 @@ return this.level;
             }
 
             i++;
-            }
-            
+            }          
             for(String s2 : CRAFT) {
                 if(s2 != null) {
                     game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have unlocked the " + s2 + " CRAFT.");
                 }
+            }       }
+    public int getNapTime() {
+        int napTime = age+5;
+        return napTime;
+	}
+    public String getHungerThirst(Player player) {
+        String HT = "Content";
+        if(player.getHunger()<25){
+           HT = "Hungery";
+
+        }
+        if(player.getThirst()<25){
+             HT = "Thirsty";
+        }
+        if(player.getHunger()<25 && player.getThirst()<25){
+            HT = "Hungery and Thirsty";
+        }
+        return HT;
+    }
+    public void setHunger(int i) {
+        this.hunger = i;
+    }
+    public void bldderFull(int i) {
+        this.bladder += i;
+        if(this.bladder >= 100){
+            this.bladder = 0;
+            this.potty(currentRoom);
+            this.game.endTurn();
+        }
+    }
+    int getHunger() {
+        return this.hunger;
+    }
+    int getThirst() {
+        return this.thirst;
+    }
+    Item getItemByName(String itemName) {
+        for(Item items : inventory) {
+            if(items.getName().equals(itemName)) {
+                return items;
             }
         }
-
+        return null;    
+    }
+    ArrayList<Item> getArrayInventory() {
+        return this.inventory;
+    }
+    void setCurrentRoom(Room room) {
+        this.currentRoom = room;
+    }
+    void putItem(Item item, Item containerByName) {
+        containerByName.addItem(item);
+        this.inventory.remove(item);
+    }
+    void throwAway(Item item, Item containerByName) {
+        this.inventory.remove(item);
+        containerByName.addItem(item);
+    }
     void potty(Room room) {
         if(this.currentRoom.getName().equalsIgnoreCase("Bathroom")) {
             game.endTurn();
@@ -856,34 +794,12 @@ return this.level;
         getItemByType("food").use(this);
         getItemByType("drink").use(this);
     }
-
     void reflect() {
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You reflect on your day.");
         this.addResilience(5);
         this.addExperience(5);
         game.moveTime(10);
     }
-
-    private Item getItemByType(String type) {
-        for(Item item1 : inventory) {
-            if(item1.getType().equals(type)) {
-                return item;
-            }
-        }
-        return null;
-    }
-	public int getNapTime() {
-        int napTime = age+5;
-        return napTime;
-	}
-
-    private Item makePuddle() {
-        Item puddles = new Item("Puddle of pee", "A puddle of pee.", "mess", game);
-        puddles.setTakeable(false);
-        return puddles;
-        
-    }
-
     void eatDrink(Item aThis) {
         switch(aThis.getType()){
             case "food" -> {
@@ -905,27 +821,133 @@ return this.level;
             }
         }
     }
-
-    public String getHungerThirst(Player player) {
-        String HT = "Content";
-        if(player.getHunger()<25){
-           HT = "Hungery";
-
-        }
-        if(player.getThirst()<25){
-             HT = "Thirsty";
-        }
-        if(player.getHunger()<25 && player.getThirst()<25){
-            HT = "Hungery and Thirsty";
-        }
-        return HT;
-    }
-
-    public void setHunger(int i) {
-        this.hunger = i;
-    }
-
-    void setThirst(int i) {
+	void setThirst(int i) {
         this.thirst = i;
     }
+    void interact(Item selectedItem) {
+        if(selectedItem.getType().equalsIgnoreCase("toy")){
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You played with the toy.");
+            this.addResilience(1);
+            this.addExperience(66);
+        } else if(selectedItem.getType().equalsIgnoreCase("food") || selectedItem.getType().equalsIgnoreCase("drink")){
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You ate the " + selectedItem);
+            this.addResilience(5);
+            this.addExperience(5);
+        } else if(selectedItem.getType().equalsIgnoreCase("potty")){ 
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You went potty.");
+            this.addResilience(10);
+            this.addExperience(10);
+        } else {
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't play with that.");
+            this.addResilience(-10);
+            this.addExperience(1);
+        }
     }
+    void playedWith(Item aThis) {
+        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You played with the " + aThis.getName());
+        this.addResilience(1);
+        this.addExperience(66);
+        this.game.endTurn();
+        
+    }
+    void open(Container aThis) {
+        aThis.displayInventory();
+        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You open the " + aThis.getName());
+    }
+    private void generatePerks() {
+        Perk brat   = new Perk("Brat", "You’re a brat, plain and simple. Your antics make teachers sigh and classmates roll their eyes, but there's no denying you add a bit of chaotic fun to the day.\n", 0, 1);
+        Perk cute  = new Perk("Cute", "You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
+        Perk classClown = new Perk("Class Clown", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
+        Perk geek = new Perk("Geek", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
+        Perk outcast = new Perk("Outcast", "You’re the outcast, the loner, the one who doesn’t quite fit in. But that’s okay, because you’ve got your own unique style and a rebellious spirit that sets you apart from the crowd.\n", 0, 1);
+        Perk teacherPet = new Perk("Teacher's Pet", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
+        Perk slacker = new Perk("Slacker", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
+        Perk shy = new Perk("Shy", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);   
+        Perk smart = new Perk("Smart", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
+        Perk goodkid = new Perk("Good", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
+        Perk rebel = new Perk("Rebel", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
+        Perk bully = new Perk("Bully", "You’ve got a tough exterior and a knack for getting what you want, even if it means stepping on a few toes. Others might find you intimidating, but deep down, everyone has their reasons.\n", 0, 1);
+        Perk nerd = new Perk("Nerd", "Books, gadgets, and games are your world. You’re the go-to for all things geeky, and your passion for learning makes you stand out as a true nerd.\n", 0, 1);
+        Perk confederate = new Perk("Confederate", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
+        Perk rascal = new Perk("Rascal", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
+        Perk angel = new Perk("Angel", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
+        Perk rogue = new Perk("Rogue", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
+        Perk troublemaker = new Perk("Troublemaker", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
+        Perk sweetheart =   new Perk("Sweet Heart", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
+        Perk comedian = new Perk("Comedian", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
+        Perk brainiac = new Perk("Brainiac", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
+        Perk spy = new Perk("Spy", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
+        Perk sloth = new Perk("Sloth", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
+        Perk introvert = new Perk("Introvert", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
+        Perk genius = new Perk("Genius", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
+        Perk valedictorian = new Perk("Valedictorian", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
+        Perk lazy = new Perk("Lazy", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
+        Perk jester = new Perk("Jester  ", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
+        Perk adorable = new Perk("Adorable", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
+        Perk braniac = new Perk("Braniac", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
+        Perk hermit = new Perk("Hermit", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
+        this.perks.add(spy);
+        this.perks.add(sloth);
+        this.perks.add(brainiac);
+        this.perks.add(comedian);
+        this.perks.add(sweetheart);
+        this.perks.add(troublemaker);
+        this.perks.add(angel);
+        this.perks.add(rogue);
+        this.perks.add(valedictorian);
+        this.perks.add(genius);
+        this.perks.add(introvert);
+        this.perks.add(lazy);
+        this.perks.add(confederate);
+        this.perks.add(nerd);
+        this.perks.add(jester);
+        this.perks.add(adorable);
+        this.perks.add(rebel);
+        this.perks.add(braniac); 
+        this.perks.add(brat);
+        this.perks.add(cute);
+        this.perks.add(smart);
+        this.perks.add(goodkid);
+        this.perks.add(bully);
+        this.perks.add(classClown);
+        this.perks.add(geek);
+        this.perks.add(outcast);
+        this.perks.add(teacherPet);
+        this.perks.add(slacker);
+        this.perks.add(shy);
+        this.perks.add(rascal);
+        this.perks.add(hermit);
+    }
+    private int getLevel() {
+return this.level;
+    }
+    private void listPerks() {
+        for(Perk perk : perks) {
+           game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),perk.getName() + ": " + perk.getDescription());
+        }
+    }
+    private String slotWord(int index) {
+        return switch (index) {
+            case 0 -> "Head: ";
+            case 1 -> "Chest: ";
+            case 2 -> "Undies: ";
+            case 3 -> "Pants: ";
+            case 4 -> "Shoes: ";
+            default -> "Unknown: ";
+        };
+    }
+    private Item getItemByType(String type) {
+        for(Item item1 : inventory) {
+            if(item1.getType().equals(type)) {
+                return item;
+            }
+        }
+        return null;
+    }
+    private Item makePuddle() {
+        Item puddles = new Item("Puddle of pee", "A puddle of pee.", "mess", game);
+        puddles.setTakeable(false);
+        return puddles;
+        
+    }
+}

@@ -580,13 +580,40 @@ if(this.inventory!=null) {
             
             }
     public  void generateItems() {
+                Furniture artStation = new Furniture("Art Station", "A station with a logo on the front of a happy beaver, This station is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Furniture", game);
+                Container artSupplies = new Container("Art Supplies", "A box with a logo on the front of a happy beaver, This box is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
+                artSupplies.setType("Container");
+                Equipment artSmock = new Equipment("Art Smock", "A smock with a logo on the front of a happy beaver, This smock is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", 2, "Clothing");
+                Item kickBall = new Item("Kick Ball", "A ball with a logo on the front of a happy beaver, This ball is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                Item jumpRope = new Item("Jump Rope", "A rope with a logo on the front of a happy beaver, This rope is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                Item hulaHoop = new Item("Hula Hoop", "A hoop with a logo on the front of a happy beaver, This hoop is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                Item pegBoard = new Item("Peg Board", "A board with a logo on the front of a happy beaver, This board is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                Item buildingBlocks = new Item("Building Blocks", "A box with a logo on the front of a happy beaver, This box is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
+                Item dolly = new Item("Dolly", "A dolly with a logo on the front of a happy beaver, This dolly is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                Container dressUpTrunk = new Container("Dress Up Trunk", "A trunk with a logo on the front of a happy beaver, This trunk is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
+                Container puppetTheater = new Container("Puppet Theater", "A theater with a logo on the front of a happy beaver, This theater is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "toy", game);
+                puppetTheater.setTakeable(true);
+                Item storyBoard = new Item("Story Board", "A board with a logo on the front of a happy beaver, This board is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Furniture", game);
+                Item apptitude = new Item("Apptitude Test", "A test with a logo on the front of a happy beaver, This test is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "test", game);
+                Item tablet = new Item("Tablet", "A tablet with a logo on the front of a happy beaver, This tablet is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item labTablet = new Item("Lab Tablet", "A tablet with a logo on the front of a happy beaver, This tablet is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item computer = new Item("Computer", "A computer with a logo on the front of a happy beaver, This computer is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item labComputer = new Item("Lab Computer", "A computer with a logo on the front of a happy beaver, This computer is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item prefectBadge = new Item("Prefect Badge", "A badge with a logo on the front of a happy beaver, This badge is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item prefectKey = new Item("Prefect Key", "A key with a logo on the front of a happy beaver, This key is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Item prefectCard = new Item("Prefect Card", "A card with a logo on the front of a happy beaver, This card is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "tool", game);
+                Equipment prefectUniform = new Equipment("Prefect Uniform", "A uniform with a logo on the front of a happy beaver, This uniform is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", 2, "Clothing");
+                Item labCoat = new Item("Lab Coat", "A coat with a logo on the front of a happy beaver, This coat is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Clothing", game);
+                Item labGoggles = new Item("Lab Goggles", "A pair of goggles with a logo on the front of a happy beaver, These goggles are a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Clothing", game);
+                Item labGloves = new Item("Lab Gloves", "A pair of gloves with a logo on the front of a happy beaver, These gloves are a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Clothing", game);
                 Equipment uniformtop = new Equipment("Uniform Top", "A bague polo style top with a logo on the front of a happy beaver, This top is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", 1, description);
                 Equipment uniformbottom = new Equipment("Uniform Bottom", "A pair of khaki pants with a logo on the back pocket of a happy beaver, These bottoms are switch between a skirt and shorts with a large velcro strip along the inseem.", 3, description);
                 Equipment uniformshoes = new Equipment("Uniform Shoes", "A pair of black shoes with a logo on the side of a happy beaver, These shoes are a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", 4, description);
                 Item schoolbag = new Item("School Bag", "A large bag with a logo on the front of a happy beaver, This bag is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
                 Item lunchbox = new Item("Lunch Box", "A small box with a logo on the front of a happy beaver, This box is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
                 Item waterbottle = new Item("Water Bottle", "A bottle with a logo on the front of a happy beaver, This bottle is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Bottle",game);
-                Item pencilcase = new Item("Pencil Case", "A case with a logo on the front of a happy beaver, This case is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container",game);
+                Container pencilcase = new Container("Pencil Case", "A case with a logo on the front of a happy beaver, This case is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container",game);
+                pencilcase.setTakeable(true);
                 Equipment diaper = new Equipment("Diaper", "A plain white diaper, this diaper is avalible in all sizes. In the dorms or changing rooms throughout the BusyBeavers Home For Wayward Rejuves you can find a diaper changing station with a variety of sizes.", 2, description);
                 Item plasticknife = new Item("Plastic Knife", "A plastic knife, this knife is used for cutting food in the cafeteria. The knife is avalible in the cafeteria.", "tool",game); 
                     Item rubberspoon = new Item("Rubber Spoon", "A rubber spoon, this spoon is used for eating food in the cafeteria. The spoon is avalible in the cafeteria.", "tool",game);
@@ -608,9 +635,38 @@ if(this.inventory!=null) {
                     Item labcoat = new Item("Lab Coat", "A lab coat, this coat is used for working in the lab. The coat is avalible in the lab.", "Clothing",game);
                     Item puddle = new Item("Puddle of pee", "A puddle of pee, eeeew", "mess", game);
                     Item snackDispenser = new Item("Snack Dispenser", "A snack dispenser, this dispenser is used for getting snacks in the snack area. The dispenser is avalible in the snack area.", "Container",game);
-                    snackDispenser.setTakeable(false);
-                    snackDispenser.setDispenser(true);
                     kitchen.getArrayInventory().add(snackDispenser);
+                    snackArea.getArrayInventory().add(snackDispenser);
+                    mainRoom.getArrayInventory().add(artStation);
+                    mainRoom.getArrayInventory().add(artSupplies);
+                    mainRoom.getArrayInventory().add(artSmock);
+                    mainRoom.getArrayInventory().add(kickBall);
+                    mainRoom.getArrayInventory().add(jumpRope);
+                    mainRoom.getArrayInventory().add(hulaHoop);
+                    mainRoom.getArrayInventory().add(pegBoard);
+                    mainRoom.getArrayInventory().add(buildingBlocks);
+                    mainRoom.getArrayInventory().add(dolly);
+                    mainRoom.getArrayInventory().add(dressUpTrunk);
+                    mainRoom.getArrayInventory().add(puppetTheater);
+                    mainRoom.getArrayInventory().add(storyBoard);
+                    mainRoom.getArrayInventory().add(apptitude);
+                    mainRoom.getArrayInventory().add(tablet);
+                    mainRoom.getArrayInventory().add(labTablet);
+                    mainRoom.getArrayInventory().add(computer);
+                    mainRoom.getArrayInventory().add(labComputer);
+                    mainRoom.getArrayInventory().add(prefectBadge);
+                    mainRoom.getArrayInventory().add(prefectKey);
+                    mainRoom.getArrayInventory().add(prefectCard);
+                    mainRoom.getArrayInventory().add(prefectUniform);
+                    mainRoom.getArrayInventory().add(labCoat);
+                    mainRoom.getArrayInventory().add(labGoggles);
+                    mainRoom.getArrayInventory().add(labGloves);
+                    mainRoom.getArrayInventory().add(puddle);
+                    dorms.getArrayInventory().add(prefectBadge);
+                    dorms.getArrayInventory().add(prefectKey);
+                    dorms.getArrayInventory().add(prefectCard);
+                    dorms.getArrayInventory().add(prefectUniform);
+                    dorms.getArrayInventory().add(labCoat);
                     puddle.setTakeable(false);
                     recoveryRoom.getArrayInventory().add(puddle);
                     recoveryRoom.getArrayInventory().add(trashcan);
@@ -636,6 +692,7 @@ if(this.inventory!=null) {
                 hallway.getArrayInventory().add(trashcan);
                 hallway.getArrayInventory().add(trash);
                 stairs.getArrayInventory().add(trashcan);
+
                 stairs.getArrayInventory().add(trash);
                 basement.getArrayInventory().add(trashcan);
                 basement.getArrayInventory().add(trash);
@@ -778,9 +835,9 @@ if(this.inventory!=null) {
         return null;
     }
     public Room getRoomByName(String string) {
-        for (Room room : getRooms()) {
-            if (room.getName().equalsIgnoreCase(string)) {
-                return room;
+        for (Room roomS : getRooms()) {
+            if (roomS.getName().equalsIgnoreCase(string)) {
+                return roomS;
             }
         }
         return null;
@@ -798,11 +855,10 @@ if(this.inventory!=null) {
         return game;
     }
     List<Item> getListItems() {
-        for (Room room : rooms) {
-            listitems.addAll(room.getArrayInventory());
+        for (Room roomLI : rooms) {
+            listitems.addAll(roomLI.getArrayInventory());
         }
         return inventory;
     }
-
 }
 
