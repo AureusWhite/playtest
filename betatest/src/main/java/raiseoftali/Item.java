@@ -73,22 +73,9 @@ public class Item {
         if(this.items == null) {
             this.items = new ArrayList<>();
         }
-        if(this.type.equalsIgnoreCase("container")) 
-        {     
         this.items.add(item);
-        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"this happened2" + item.getName());
-            if(this.getName().equalsIgnoreCase("trash can")&&item.getType().equalsIgnoreCase("trash")) {
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"this happened2" + item.getName());
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You put the trash in the " + this.getName());
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You gained 10 experience points");
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You now have " + game.player.getExperience() + " experience points");
-                item.setTakeable(false);
-                game.player.getArrayInventory().add(new Item("Gold Star", "These gold stars can be used for privlages like toys or exchanged for Exp", "reward", game));
-            }
-    } else {
-            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't put anything in the " + this.getName());
-        }
-        this.items.add(item); }
+    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You put the " + item.getName() + " in the " + this.getName());
+    }
     public void removeItem(Item item) {
         this.items.remove(item);
     }
@@ -105,6 +92,8 @@ public class Item {
             this.takeable = false;
         } else if (this.type.equalsIgnoreCase("furniture")) {
             this.takeable = false;
+        } else {
+            this.takeable = true;
         }
     }
 }

@@ -7,6 +7,12 @@ public class NPC {
     private String type;
     private Quests quest;
     private Item questItem;
+    public Item getQuestItem() {
+        return questItem;
+    }
+    public void setQuestItem(Item questItem) {
+        this.questItem = questItem;
+    }
     private final  ArrayList<Item> inventory;
     public Item setQuestItem;
     private Game game;
@@ -19,7 +25,8 @@ public class NPC {
         this.type = type;
         this.inventory = new ArrayList<>();
         Item trash = new Item("Trash", "A piece of trash", "trash", game);
-        this.addItem(trash); 
+        this.addItem(trash);
+        this.questItem = trash;
     }
     private void addItem(Item trash) {
         this.inventory.add(trash);
@@ -46,27 +53,11 @@ public class NPC {
         return "Blargh";  
     }
     public void dialog(Player player) {
-        this.questItem = new Item("Trash", "A piece of trash", "trash", game);
-       game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "Hello, " + player.getName() + "!");
-       game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "I am " + this.getName() + ".");
-       game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), this.getDescription());
-        if(this.quest != null) {
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "I have a quest for you!");
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), this.quest.getDescription());
+        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName() + ". I am a " + this.getType().replace("_", " ") + ".");
+        if(player.hasItem(this.getQuestItem().getName())){
+            player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have the " + this.getQuestItem().getName() + " I need!");
         }
-        if(player.hasItem(this.questItem.getName())){
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have the item I need!");
-            player.getArrayInventory().remove(player.getItemByName(this.questItem.getName()));
-            player.addExperience(100);
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have completed the quest!");
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have gained 100 experience points!");
-            this.quest = null;
-            this.questItem = null;
         }
-        if(this.quest == null) {
-           game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "I have no quest for you.");
-        }
-    }
     public void setQuest(Quests quest) {
         this.quest = quest;
 
@@ -77,8 +68,8 @@ public class NPC {
     public void returnGoldStars(Player player) {
         player.getArrayInventory().remove(player.getItemByName("Gold Star"));
         player.addExperience(100);
-        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have given me a Gold Star!");
-        game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You have gained 100 experience points!");
+        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have given me a Gold Star!");
+        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have gained 100 experience points!");
 
     }
 }

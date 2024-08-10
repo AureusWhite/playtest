@@ -12,17 +12,30 @@ public class Container extends Item{
             game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "The " + this.getName() + " is locked.");
                 
             }else {
-                this.giveToPlayer(player);
+                this.giveSomeToPlayer(player,"Trash");
                 game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You found " + this.getItems().size() + " items in the " + this.getName() + ".");
-                if(player.getArrayInventory().contains(this)){
-                    player.getArrayInventory().remove(this);
+                for(Item item : this.getItems()) {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), item.getName());
+                }
             }
-        }
     }
-        public void giveToPlayer(Player player) {
+        public void giveAllToPlayer(Player player) {
             this.getItems().forEach((item) -> {
                 player.getArrayInventory().add(item);
             });
+        }
+        public void giveSomeToPlayer(Player player, String itemName) {
+            int i = 0;
+            for(Item item : this.getItems()) {
+                if(item.getName().equalsIgnoreCase(itemName)) {
+                    player.getArrayInventory().add(item);
+                    i++;
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You found "+ i + item.getName() + " in the " + this.getName() + ".");
+                    this.getItems().remove(item);
+                    return;
+                }
+            }
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "You didn't find " + itemName + " in the " + this.getName() + ".");
         }
         
     public void close() {
@@ -93,5 +106,16 @@ public class Container extends Item{
             }
         }
     }   
-}   
+    }
+
+    Item getItemByName(String itemName) {
+        for(Item item : this.getItems()) {
+            if(item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            
+        }
+    }
+        return null;
+
+    }
 }

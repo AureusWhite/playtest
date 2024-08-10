@@ -130,6 +130,7 @@ public HashMap<String, Room> exits;
             this.lockType = "";
 
         }
+
     public String getDescription() {
             return description;
         }
@@ -196,10 +197,11 @@ if(this.inventory!=null) {
     public NPC getNPCByName(String npcName) {
             for (NPC npcz : this.npcs) {
                 if (npcz.getName().equals(npcName)) {
-                    return npc;
+                    System.out.println(npcz.getName());
+                    return npcz;
                 }
             }
-            return npc;
+            return null;
         }
     public String[] getNPCs() {
             StringBuilder npcsString = new StringBuilder();
@@ -623,6 +625,7 @@ if(this.inventory!=null) {
                     Item shinyPenny = new Item("Shiny Penny", "A shiny penny, this penny is used for making wishes in the fountain. The penny is a reward given for good behaviour", "money",game);
                     Item goldstar = new Item("Gold Star", "A gold star, The star is a reward given for small acts of kindness or good behaviour", "money",game);
                     Item trash = new Item("Trash", "A bit of trash, it is generated when you make a mess. You can throw it away in the trash can.", "trash",game);
+                    trash.setTakeable(true);
                     Item trashcan = new Item("Trash Can", "A trash can, this can is used for throwing away trash. The trash can is avalible in the cafeteria.", "Container",game);
                     trashcan.setTakeable(false);
                     Item crayons = new Item("Crayons", "A box of crayons, this box is used for drawing in the art room. The crayons are avalible in the art room.", "tool",game);
@@ -640,41 +643,39 @@ if(this.inventory!=null) {
                     mainRoom.getArrayInventory().add(artStation);
                     mainRoom.getArrayInventory().add(artSupplies);
                     mainRoom.getArrayInventory().add(artSmock);
-                    mainRoom.getArrayInventory().add(kickBall);
-                    mainRoom.getArrayInventory().add(jumpRope);
-                    mainRoom.getArrayInventory().add(hulaHoop);
+                    backYard.getArrayInventory().add(kickBall);
+                    backYard.getArrayInventory().add(jumpRope);
+                    backYard.getArrayInventory().add(hulaHoop);
                     mainRoom.getArrayInventory().add(pegBoard);
                     mainRoom.getArrayInventory().add(buildingBlocks);
-                    mainRoom.getArrayInventory().add(dolly);
-                    mainRoom.getArrayInventory().add(dressUpTrunk);
-                    mainRoom.getArrayInventory().add(puppetTheater);
+                    dramaArea.getArrayInventory().add(dolly);
+                    dramaArea.getArrayInventory().add(dressUpTrunk);
+                    dramaArea.getArrayInventory().add(puppetTheater);
                     mainRoom.getArrayInventory().add(storyBoard);
-                    mainRoom.getArrayInventory().add(apptitude);
-                    mainRoom.getArrayInventory().add(tablet);
-                    mainRoom.getArrayInventory().add(labTablet);
-                    mainRoom.getArrayInventory().add(computer);
-                    mainRoom.getArrayInventory().add(labComputer);
-                    mainRoom.getArrayInventory().add(prefectBadge);
-                    mainRoom.getArrayInventory().add(prefectKey);
-                    mainRoom.getArrayInventory().add(prefectCard);
+                    storyBookVillage.getArrayInventory().add(apptitude);
+                    storyBookVillage.getArrayInventory().add(tablet);
+                    homeWorkArea.getArrayInventory().add(labTablet);
+                    homeWorkArea.getArrayInventory().add(computer);
+                    homeWorkArea.getArrayInventory().add(labComputer);
+                    dorms.getArrayInventory().add(prefectBadge);
+                    dorms.getArrayInventory().add(prefectKey);
+                    dorms.getArrayInventory().add(prefectCard);
                     mainRoom.getArrayInventory().add(prefectUniform);
                     mainRoom.getArrayInventory().add(labCoat);
                     mainRoom.getArrayInventory().add(labGoggles);
                     mainRoom.getArrayInventory().add(labGloves);
-                    mainRoom.getArrayInventory().add(puddle);
                     dorms.getArrayInventory().add(prefectBadge);
                     dorms.getArrayInventory().add(prefectKey);
                     dorms.getArrayInventory().add(prefectCard);
                     dorms.getArrayInventory().add(prefectUniform);
                     dorms.getArrayInventory().add(labCoat);
                     puddle.setTakeable(false);
-                    recoveryRoom.getArrayInventory().add(puddle);
                     recoveryRoom.getArrayInventory().add(trashcan);
                 recoveryRoom.getArrayInventory().add(diaper);
-                recoveryRoom.getArrayInventory().add(schoolbag);
-                recoveryRoom.getArrayInventory().add(lunchbox);
-                recoveryRoom.getArrayInventory().add(waterbottle);
-                recoveryRoom.getArrayInventory().add(pencilcase);
+                homeWorkArea.getArrayInventory().add(schoolbag);
+                snackArea.getArrayInventory().add(lunchbox);
+                snackArea.getArrayInventory().add(waterbottle);
+                homeWorkArea.getArrayInventory().add(pencilcase);
                 kitchen.getArrayInventory().add(plasticknife);
                 kitchen.getArrayInventory().add(rubberspoon);
                 kitchen.getArrayInventory().add(trashcan);

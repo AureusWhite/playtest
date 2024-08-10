@@ -16,11 +16,11 @@ public class Game {
         Game game = this;
         this.player = new Player(game);
         this.player.setGame(game);
-        this.player.setCurrentRoom(Room.recoveryRoom);
         this.gui = new GUI(game, player);
         this.clock = new Clock(game);
         Game.room = new Room(game,"room");
         room.buildRooms(game);
+        this.player.setCurrentRoom(Room.recoveryRoom);
         room.generateItems();
         readFile("intro1");
     }

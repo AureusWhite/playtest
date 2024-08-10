@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -244,6 +243,10 @@ moveButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             String[] exits = player.getCurrentRoom().getExits();
+            for (int i = 0; i < exits.length; i++) {
+                exits[i] = exits[i].replace("_"," ");
+                
+            }
             ImageIcon moveIcon = new ImageIcon("Move.png");
             System.out.println("Available exits: " + Arrays.toString(exits));
             
@@ -257,10 +260,9 @@ moveButton.addActionListener(new ActionListener() {
                 exits[0]
                 
             );
-            
             if (selectedExit != null) {
                 // Handle the selected exit
-                player.setCurrentRoom(player.getCurrentRoom().getExit(selectedExit));
+                player.setCurrentRoom(player.getCurrentRoom().getExit(selectedExit.replace(" ", "_")));
                 game.getGUI().printToJTextArea(jTextArea, Game.readFile(selectedExit));
                 moveSuccessful = true;
                 if (!moveSuccessful) {
@@ -272,6 +274,10 @@ moveButton.addActionListener(new ActionListener() {
 dialogButton.addActionListener(e -> {
         Room currentRoom = this.player.getCurrentRoom();
         String[] npcs = currentRoom.getNPCs();
+        for (int i = 0; i < npcs.length; i++) {
+            npcs[i] = npcs[i].replace("_"," ");
+            
+        }
         ImageIcon dialogIcon = new ImageIcon("Dialog.png");
         System.out.println("Available NPCs: " + Arrays.toString(npcs));
         
@@ -284,15 +290,15 @@ dialogButton.addActionListener(e -> {
             npcs, 
             npcs[0]
         );
-        
         if (selectedNPC != null) {
-            // Handle the selected exit
+            NPC npc = player.getCurrentRoom().getNPCByName(selectedNPC.replace(" ", "_"));
             System.out.println("Selected npc: " + selectedNPC);
-            game.dialog(selectedNPC);
+            npc.dialog(player);
             boolean dialogSuccessful = true;
             if (!dialogSuccessful) {
                 System.out.println("There is no one by that name.");
             }
+            System.out.println("Selected npc: " + selectedNPC);
         }
     });
 inspectButton.addActionListener(e -> {
@@ -449,6 +455,13 @@ public synchronized  String getInput(){
         jTextFeild.setText("");
         return input;
     }
+    public Item takeItemByName(Container container, String itemName) {
+        Item item = container.getItemByName(itemName);
+        if (item != null) {
+            container.getItems().remove(item);
+        }
+        return item;
+    }
 public void waitForInput() {
     synchronized (lock) {
         try {
@@ -511,7 +524,7 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
         private String[] getNonNullItemNames() {
             List<Item> itemN = (List<Item>) player.currentRoom.getListItems();
             return itemN.stream()
-                    .filter(Objects::nonNull)
+                    .filter(Item::isTakeable)
                     .map(Item::getName)
                     .toArray(String[]::new);
         }
