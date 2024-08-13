@@ -7,7 +7,7 @@ public class Food extends Item{
         
     }
     @Override
-    public void use(Player player) {
+    public void use(Player player, Game game) {
         if(this.getType().equalsIgnoreCase("drink")) {
             player.setThirst(player.getThirst() + 10);
             if(player.getThirst() > 100) {

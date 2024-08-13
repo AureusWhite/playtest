@@ -7,18 +7,9 @@ public class NPC {
     private String type;
     private Quests quest;
     private Item questItem;
-    public Item getQuestItem() {
-        return questItem;
-    }
-    public void setQuestItem(Item questItem) {
-        this.questItem = questItem;
-    }
     private final  ArrayList<Item> inventory;
     public Item setQuestItem;
     private Game game;
-    public Game getGame() {
-        return game;
-    }
     public NPC(String name, String description, String type) {
         this.name = name;
         this.description = description;
@@ -28,8 +19,14 @@ public class NPC {
         this.addItem(trash);
         this.questItem = trash;
     }
-    private void addItem(Item trash) {
-        this.inventory.add(trash);
+    public Item getQuestItem() {
+        return questItem;
+    }
+    public void setQuestItem(Item questItem) {
+        this.questItem = questItem;
+    }
+    public Game getGame() {
+        return game;
     }
     public String getDescription() {
         return description;
@@ -56,7 +53,8 @@ public class NPC {
         player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName() + ". I am a " + this.getType().replace("_", " ") + ".");
         if(player.hasItem(this.getQuestItem().getName())){
             player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have the " + this.getQuestItem().getName() + " I need!");
-        }
+            this.returnGoldStars(player); 
+            }
         }
     public void setQuest(Quests quest) {
         this.quest = quest;
@@ -71,5 +69,17 @@ public class NPC {
         player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have given me a Gold Star!");
         player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have gained 100 experience points!");
 
+    }
+    private void addItem(Item trash) {
+        this.inventory.add(trash);
+    }
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+    public Item getSetQuestItem() {
+        return setQuestItem;
+    }
+    public void setSetQuestItem(Item setQuestItem) {
+        this.setQuestItem = setQuestItem;
     }
 }

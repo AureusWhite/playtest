@@ -3,66 +3,50 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private int thirst;
-    private int bladder;
-    public Room room;
+    private int thirst, bladder, hunger, age, experience, money, resilience, level, maturity;
+    public Room currentRoom;
     private ArrayList<Item> inventory;
-
     private ArrayList<Quests> quests;
-    private final String[] CRAFT;
+    private String[] CRAFT;
     private int[] SMILE;
-    private Item item;
-    private String name;
+    private Item item, animalCrackerBox, puddle;
+    private String name, description, optional;
     private ArrayList<Perk> perks;
-    private String description;
-    private int experience;
-    private int money;
-    private int resilience;
-    private String optional;
-    private int level;
-    private int age;
+    private boolean perkpicked, agePicked;
     public Game game;
-    public Item animalCrackerBox;
-    public Item puddle;
+
     public Quests currentQuest;
     private Equipment[] equipment;
-    private boolean perkpicked;
-    private int maturity;
-    private Item container;
-    private int hunger;
-    private boolean agePicked;
-    public Room currentRoom;
+
     public Player(Game game) {
-        this.hunger = 100;
-        this.thirst = 100;
-        CRAFT = new String[5];
-        SMILE = new int[5];
-        inventory = new ArrayList<>();
-        perks = new ArrayList<>();
-        this.name = "Player";
-        this.description = "A player";
-        this.level = 1;
-        this.money = 20;
-        this.resilience = 100;
-        this.experience = 0;
-        this.optional = "none";
+        this.setStats(); 
         this.generatePerks();
-        this.inventory.add(new Item("Toy", "A toy", "toy", game));
-        this.inventory.add(new Item("ID", "An ID", "key", game));
-        this.equipment = new Equipment[5];
-        this.quests = new ArrayList<>();
-        this.currentQuest = null;
-        this.perkpicked = false;
-        this.agePicked = false;
-        animalCrackerBox = new Item("Animal Cracker Box", "A box of animal crackers", "food", game);
-        animalCrackerBox.setTakeable(true);
-        this.inventory.add(animalCrackerBox);
-    }
-    public Item getContainer() {
-        return container;
-    }
-    public void setContainer(Item container) {
-        this.container = container;
+        }
+
+    public void setStats() {
+        this.setHunger(100);
+        this.setThirst(100);
+        this.setBladder(0);
+        this.setAge(0);
+        this.setExperience(0);
+        this.setMoney(20);
+        this.setResilience(100);
+        this.setLevel(1);
+        this.setMaturity(0);
+        this.setSMILE(new int[]{0, 0, 0, 0, 0});
+        this.setCRAFT(new String[]{"", "", "", "", ""});
+        this.setPerks(new ArrayList<>());
+        this.setInventory(new ArrayList<>());
+        this.setEquipment(new Equipment[5]);
+        this.setQuests(new ArrayList<>());
+        this.setCurrentQuest(null);
+        this.setPerkpicked(false);
+        this.setAgePicked(false);
+        this.setOptional("none");
+        this.setName("Player");
+        this.setDescription("A player");
+        this.setGame(game);
+        this.setCurrentRoom(null);
     }
     public void setQuest(Quests quest) {
         this.quests.add(quest);
@@ -91,7 +75,7 @@ public void takeItem(Item item) {
 }
 }
     public void dropItem(Item item) {
-        if(item.getName().equals("ID")) {
+        if(item.getName().equals("ID")||item.getName() == null) {
             game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't drop that item.");
         } else {
         inventory.remove(item);
@@ -99,6 +83,9 @@ public void takeItem(Item item) {
     }
     }  
     public String[] getInventory() {
+        if(inventory.isEmpty()) {
+            return new String[]{"Empty"};
+        }
         String[] inventoryArray = new String[inventory.size()];
         for(int i = 0; i < inventory.size(); i++) {
             inventoryArray[i] = inventory.get(i).getName();
@@ -327,9 +314,6 @@ public void setName(String name) {
     }
     public void unequip(Equipment equipment2, int slot) {
         this.equipment[slot] = null;
-    }
-    public void useItem(Item item2) {
-        item2.use(this);
     }
     public Equipment[] getEquipment() {
         return this.equipment;
@@ -706,6 +690,39 @@ public void setName(String name) {
             this.game.endTurn();
         }
     }
+    public int getBladder() {
+        return bladder;
+    }
+    public void setBladder(int bladder) {
+        this.bladder = bladder;
+    }
+    public String[] getCRAFT() {
+        return CRAFT;
+    }
+    public Item getAnimalCrackerBox() {
+        return animalCrackerBox;
+    }
+    public void setAnimalCrackerBox(Item animalCrackerBox) {
+        this.animalCrackerBox = animalCrackerBox;
+    }
+    public Item getPuddle() {
+        return puddle;
+    }
+    public void setPuddle(Item puddle) {
+        this.puddle = puddle;
+    }
+    public boolean isPerkpicked() {
+        return perkpicked;
+    }
+    public void setPerkpicked(boolean perkpicked) {
+        this.perkpicked = perkpicked;
+    }
+	public boolean isAgePicked() {
+        return agePicked;
+    }
+    public void setAgePicked(boolean agePicked) {
+        this.agePicked = agePicked;
+    }
     int getHunger() {
         return this.hunger;
     }
@@ -735,6 +752,13 @@ public void setName(String name) {
         containerByName.addItem(item);
     }
     void potty(Room room) {
+        if(this.equipment[2] == null) {
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You went potty in "+ getCurrentRoom().getName());
+            this.currentRoom.getArrayInventory().add(makePuddle());
+            this.addResilience(-10);
+            this.addExperience(1);
+            return;
+        }
         if(this.currentRoom.getName().equalsIgnoreCase("Bathroom")) {
             game.endTurn();
             game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You went potty in the potty.");
@@ -790,9 +814,13 @@ public void setName(String name) {
         }
     }
     void eatDrink() {
+        if(getItemByType("food")==null){
+            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have nothing to eat or drink.");
+            return;
+        }
         game.endTurn();
-        getItemByType("food").use(this);
-        getItemByType("drink").use(this);
+        getItemByType("food").use(this, game);
+        getItemByType("drink").use(this, game);
     }
     void reflect() {
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You reflect on your day.");
@@ -800,7 +828,7 @@ public void setName(String name) {
         this.addExperience(5);
         game.moveTime(10);
     }
-    void eatDrink(Item aThis) {
+    public void eatDrink(Item aThis) {
         switch(aThis.getType()){
             case "food" -> {
                 game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You eat the " + aThis.getName());
@@ -821,10 +849,10 @@ public void setName(String name) {
             }
         }
     }
-	void setThirst(int i) {
+    void setThirst(int i) {
         this.thirst = i;
     }
-    void interact(Item selectedItem) {
+   public  void interact(Item selectedItem) {
         if(selectedItem.getType().equalsIgnoreCase("toy")){
             game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You played with the toy.");
             this.addResilience(1);
@@ -850,7 +878,7 @@ public void setName(String name) {
         this.game.endTurn();
         
     }
-    void open(Container aThis) {
+   public void open(Container aThis) {
         aThis.displayInventory();
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You open the " + aThis.getName());
     }
@@ -939,7 +967,7 @@ return this.level;
     private Item getItemByType(String type) {
         for(Item item1 : inventory) {
             if(item1.getType().equals(type)) {
-                return item;
+                return item1;
             }
         }
         return null;
@@ -949,5 +977,9 @@ return this.level;
         puddles.setTakeable(false);
         return puddles;
         
+    }
+
+    private void setCRAFT(String[] string) {
+        this.CRAFT = string;
     }
 }

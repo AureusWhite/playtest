@@ -7,7 +7,7 @@ public class Container extends Item{
         
     }
     @Override
-    public void use(Player player) {
+    public void use(Player player, Game game) {
         if(this.isLocked()) {
             game.getGUI().printToJTextArea(game.getGUI().getjTextArea(), "The " + this.getName() + " is locked.");
                 
@@ -101,7 +101,7 @@ public class Container extends Item{
             if(player.getArrayInventory().contains(player.getItemByName("Coloring Book"))){
                 game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You already have a coloring book");
             } else {
-                player.getArrayInventory().add(coloringBook);
+                player.getArrayInventory().add(coloringBook); 
                 game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You got a coloring book");
             }
         }

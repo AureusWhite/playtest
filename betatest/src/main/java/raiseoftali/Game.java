@@ -7,11 +7,29 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Game {
+    private static Room room;
+    public static String readFile(String fileName) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            File file = new File(fileName.concat(".txt"));
+            try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                    sb.append("\n");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e);
+    }
+        return sb.toString();
+    }
     Player player;
     private  Clock clock;
-    private  GUI gui;
-    private static Room room;
 
+    private  GUI gui;
     public Game() {
         Game game = this;
         this.player = new Player(game);
@@ -39,24 +57,6 @@ public class Game {
         player.setUp();
         gui.printToJTextArea(gui.getjTextArea(), Game.readFile("intro2"));
 
-    }
-    public static String readFile(String fileName) {
-        StringBuilder sb = new StringBuilder();
-        try {
-            File file = new File(fileName.concat(".txt"));
-            try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                    sb.append("\n");
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
-        } catch (IOException e) {
-            System.err.println(e);
-    }
-        return sb.toString();
     }
     public void moveTime(int time) {
         clock.moveTime(time);

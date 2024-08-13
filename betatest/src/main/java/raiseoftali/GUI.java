@@ -38,18 +38,12 @@ private String[] roomChoices, npcChoices, itemChoices;
 private final  Color periwinkle;
 private JLabel statsLabel;
 private final Object lock = new Object();
-private JButton carebutton;
-private JButton tantrumButton;
-private JButton takeButton;
-private JButton playButton;
+private final JButton carebutton;
+private final JButton tantrumButton;
+private final JButton takeButton;
+private final JButton playButton;
 private Game game;
 public List<Item> items;
-public Game getGame() {
-    return game;
-}
-public void setGame(Game game) {
-    this.game = game;
-}
 public GUI(Game game, Player player) {
     this.player = player;
     periwinkle = new Color(204, 204, 255);
@@ -291,9 +285,15 @@ dialogButton.addActionListener(e -> {
             npcs[0]
         );
         if (selectedNPC != null) {
+            if(selectedNPC.equalsIgnoreCase("empty")){
+                JOptionPane.showMessageDialog(null, "There are no NPCs in the room.");
+                return;
+            }
             NPC npc = player.getCurrentRoom().getNPCByName(selectedNPC.replace(" ", "_"));
             System.out.println("Selected npc: " + selectedNPC);
             npc.dialog(player);
+
+
             boolean dialogSuccessful = true;
             if (!dialogSuccessful) {
                 System.out.println("There is no one by that name.");
@@ -317,12 +317,12 @@ inspectButton.addActionListener(e -> {
             switch(selectedItem) {
                 case "Snack Dispenser", "Art Supplies" -> {
                     Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
-                    this.player.useItem(item);
+                    item.use(player,game);
                     printToJTextArea(game.getGUI().getjTextArea(), "You used the " + item.getName());
                 }
                 default -> {
                     Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
-                    this.player.useItem(item);
+                    item.use(player,game);
                     printToJTextArea(game.getGUI().getjTextArea(), "You interacted with the " + item.getName());
                 }
                 
@@ -343,6 +343,9 @@ inventoryButton.addActionListener(e -> {
                 this.player.getInventory()[0]
                 );
         if (selectedItem != null) {
+            if(selectedItem.equalsIgnoreCase("Empty")){
+                JOptionPane.showMessageDialog(null, "There are no items in your inventory.");
+            } else{
             int action = JOptionPane.showOptionDialog(
                 null,
                 "What would you like to do with " + selectedItem + "?",
@@ -353,11 +356,12 @@ inventoryButton.addActionListener(e -> {
                 options,
                 options[0]
             );
+            
             Item item = this.player.getItemByName(selectedItem);
             switch (action) {
-                case 0 ->                     {
-                        item.use(player);
-                                                  }
+                case 0 ->{
+                item.use(player,game);
+                }
                 case 1 ->                     {
                     this.player.dropItem(item);
                     }
@@ -396,11 +400,16 @@ inventoryButton.addActionListener(e -> {
                     }
             }
         }
+    }
     });
 
 
 takeButton.addActionListener(e -> {
         String[] itemarray = getNonNullItemNames();
+        if (itemarray.length == 0) {
+            JOptionPane.showMessageDialog(null, "There are no items to take.");
+            return;
+        }
         ImageIcon takeIcon = new ImageIcon("Take.png");
         System.out.println("Available items: " + Arrays.toString(itemarray));
         
@@ -425,6 +434,9 @@ takeButton.addActionListener(e -> {
             }
         }
     });}
+public Game getGame() {
+    return game;
+}
 public String[] getItemChoices() {
         return itemChoices;
     }
@@ -486,31 +498,7 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
     public void setStatsLabel(JLabel statsLabel) {
         this.statsLabel = statsLabel;
     }
-    public JButton getcarebutton() {
-        return carebutton;
-    }
-    public void setcarebutton(JButton carebutton) {
-        this.carebutton = carebutton;
-    }
-    public JButton getTantrumButton() {
-        return tantrumButton;
-    }
-    public void setTantrumButton(JButton tantrumButton) {
-        this.tantrumButton = tantrumButton;
-    }
-    public JButton getTakeButton() {
-        return takeButton;
-    }
-    public void setTakeButton(JButton takeButton) {
-        this.takeButton = takeButton;
-    }
-    public JButton getPlayButton() {
-        return playButton;
-    }
-    public void setPlayButton(JButton playButton) {
-        this.playButton = playButton;
-    }
-    private String getEquips() {
+    public String getEquips() {
             String equips = "";
             for(Equipment equipment : this.player.getEquipment()) {
                 if(equipment != null) {
@@ -521,7 +509,29 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
             return equips;
         }
 
+        public void setjTextArea(JTextArea jTextArea) {
+            this.jTextArea = jTextArea;
+        }
+        public Player getPlayer() {
+            return player;
+        }
+        public void setPlayer(Player player) {
+            this.player = player;
+        }
+        public Color getPeriwinkle() {
+            return periwinkle;
+        }
+        public Object getLock() {
+            return lock;
+        }
+        public List<Item> getItems() {
+            return items;
+        }
+        public void setItems(List<Item> items) {
+            this.items = items;
+        }
         private String[] getNonNullItemNames() {
+
             List<Item> itemN = (List<Item>) player.currentRoom.getListItems();
             return itemN.stream()
                     .filter(Item::isTakeable)

@@ -115,14 +115,24 @@ public HashMap<String, Room> exits;
     private String description;
     private boolean locked;
     public String lockType;
-    private GUI gui;   
+    private GUI gui;
+    private Item empty;
+    private NPC noone;   
+    public NPC getNoone() {
+        return noone;
+    }
+
+    public void setNoone(NPC noone) {
+        this.noone = noone;
+    }
+
     public Room(Game game1, String name) {
             this.game = game1;
             this.npcs = new ArrayList<>();
             this.exits = new HashMap<>();
             this.inventory = new ArrayList<>();
             this.rooms = new ArrayList<>();
-           listitems = this.getListItems();
+            listitems = this.getListItems();
             this.name = name;
             this.description = "You are in the " + name;
             this.optional = "";
@@ -204,6 +214,9 @@ if(this.inventory!=null) {
             return null;
         }
     public String[] getNPCs() {
+        if(this.npcs.isEmpty()) {
+                return new String[]{"empty"};
+            }
             StringBuilder npcsString = new StringBuilder();
             for (NPC npcz : npcs) {
                 npcsString.append(npcz.getName()).append(" ");
@@ -226,6 +239,9 @@ if(this.inventory!=null) {
             return this.optional;
         }
     public String[] getInventory() {
+        if(this.getArrayInventory().isEmpty()) {
+                return new String[]{"empty"};
+            }
             String[] items = new String[this.getArrayInventory().size()];
             for (int i = 0; i < this.getArrayInventory().size(); i++) {
                 items[i] = this.getArrayInventory().get(i).getName();
@@ -582,6 +598,10 @@ if(this.inventory!=null) {
             
             }
     public  void generateItems() {
+                Item empty1 = new Item("Room is empty", "You can't pick up nothing!", "empty", game);
+                empty1.setTakeable(false);
+                this.inventory.add(empty1);
+                
                 Furniture artStation = new Furniture("Art Station", "A station with a logo on the front of a happy beaver, This station is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Furniture", game);
                 Container artSupplies = new Container("Art Supplies", "A box with a logo on the front of a happy beaver, This box is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container", game);
                 artSupplies.setType("Container");
@@ -856,10 +876,16 @@ if(this.inventory!=null) {
         return game;
     }
     List<Item> getListItems() {
+        
         for (Room roomLI : rooms) {
+            if (roomLI.getArrayInventory() != null)
             listitems.addAll(roomLI.getArrayInventory());
-        }
+            else {
+                listitems.add(empty);
+            }
+        } 
         return inventory;
     }
+
 }
 

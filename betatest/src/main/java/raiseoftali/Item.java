@@ -10,6 +10,17 @@ public class Item {
     private boolean locked;
     private boolean takeable;
     protected Game game;
+    private ArrayList<Item> items = new ArrayList<>();
+    private final  int slot;
+    public Item(String name, String description, String type, Game game) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.slot = -1;       
+        this.items = new ArrayList<>(); 
+        this.game = game;
+        doTakeable();
+    }
     public boolean isTakeable() {
         return takeable;
     }
@@ -22,22 +33,11 @@ public class Item {
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
-    private ArrayList<Item> items = new ArrayList<>();
-    private final  int slot;
     public ArrayList<Item> getItems() {
         return items;
     }
     public void setItems(ArrayList<Item> items) {
         this.items = items;
-    }
-    public Item(String name, String description, String type, Game game) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.slot = -1;       
-        this.items = new ArrayList<>(); 
-        this.game = game;
-        doTakeable();
     }
     public String getOptional() {
         return optional;
@@ -54,7 +54,7 @@ public class Item {
     public String getName() {
         return this.name;
     }
-    public void use(Player player){
+    public void use(Player player, Game game){
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"Default Use Method");
     }
     public String getType() {
@@ -69,13 +69,6 @@ public class Item {
     public int getSlot() {
         return this.slot;
     }
-    void addItem(Item item) {
-        if(this.items == null) {
-            this.items = new ArrayList<>();
-        }
-        this.items.add(item);
-    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You put the " + item.getName() + " in the " + this.getName());
-    }
     public void removeItem(Item item) {
         this.items.remove(item);
     }
@@ -87,14 +80,17 @@ public class Item {
             }
         }
     }
+    void addItem(Item item) {
+        if(this.items == null) {
+            this.items = new ArrayList<>();
+        }
+        this.items.add(item);
+    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You put the " + item.getName() + " in the " + this.getName());
+    }
     private void doTakeable() {
         if(this.type.equalsIgnoreCase("container")) {
             this.takeable = false;
-        } else if (this.type.equalsIgnoreCase("furniture")) {
-            this.takeable = false;
-        } else {
-            this.takeable = true;
-        }
+        } else this.takeable = !this.type.equalsIgnoreCase("furniture");
     }
 }
 

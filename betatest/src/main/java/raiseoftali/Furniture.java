@@ -7,7 +7,7 @@ public class Furniture extends Item {
         }
     
         @Override
-        public void use(Player player) {
+        public void use(Player player,Game game) {
             if(this.getType().equalsIgnoreCase("toy")) {
                 player.setExperience(player.getExperience() + 1);
                 player.playedWith(this);

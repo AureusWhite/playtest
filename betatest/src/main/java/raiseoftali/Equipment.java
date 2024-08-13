@@ -4,6 +4,11 @@ package raiseoftali;
 public class Equipment extends Item{
     private int slot;
     private String type;
+    public Equipment(String name, String description, int slot, String type) {
+        super(name, description, type, null);
+        this.type = "equipment";
+        this.slot = slot;
+    }
     @Override
     public String getType() {
         return type;
@@ -11,11 +16,6 @@ public class Equipment extends Item{
     @Override
     public void setType(String type) {
         this.type = type;
-    }
-    public Equipment(String name, String description, int slot, String type) {
-        super(name, description, type, null);
-        this.type = "equipment";
-        this.slot = slot;
     }
     public void equip(Player player) {
         player.equip(this, this.slot);
