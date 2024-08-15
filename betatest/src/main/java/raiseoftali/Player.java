@@ -329,8 +329,8 @@ public void setName(String name) {
         }
     }
     public Perk getPerkByName(String input) {
-        for(Perk perk : getPerks()) {
-            if(perk.getName().equals(input)) {
+        for(Perk perk : this.perks) {
+            if(perk.getName().equalsIgnoreCase(input)) {
                 return perk;
             }
         }
@@ -392,229 +392,660 @@ public void setName(String name) {
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
-    public void upgrade(Perk perk2) {
-        switch(perk2.getName()){
-            case "Brat" -> {
-                getPerkByName("Brat").setActive(false);
-                getPerkByName("Rascal").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Brat to Rascal.");
-                this.SMILE[0] += 4;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 2;
+    public void upgrade(Perk perk2) {    
+        switch(perk2.getName().toLowerCase()) {
+            case "performer" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("performer").setActive(false);
+                newPerk = getPerkByName("ring master").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Cute" -> {
-                getPerkByName("Cute").setActive(false);
-                getPerkByName("Adorable").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Cute to Adorable.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 2;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 4;
+            case "busy beaver" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("busy beaver".toLowerCase()).setActive(false);
+                newPerk = getPerkByName("confederate".toLowerCase()).setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Class Clown" -> {
-                getPerkByName("Class Clown").setActive(false);
-                getPerkByName("Jester").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Class Clown to Jester.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 4;
-                this.SMILE[2] += 2;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 3;
+            case "playmate" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("playmate").setActive(false);
+                newPerk = getPerkByName("popular").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Geek" -> {
-                getPerkByName("Geek").setActive(false);
-                getPerkByName("Nerd").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Geek to Nerd.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
+            case "bookworm" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("bookworm").setActive(false);
+                newPerk = getPerkByName("storyteller").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Outcast" -> {
-                getPerkByName("Outcast").setActive(false);
-                getPerkByName("Rebel").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Outcast to Rebel.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 2;
+            case "mediator" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("mediator").setActive(false);
+                newPerk = getPerkByName("arbitrator").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Teacher's Pet" -> {
-                getPerkByName("Teacher's Pet").setActive(false);
-                getPerkByName("Valedictorian").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Teacher's Pet to Valedictorian.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
+            case "tutor" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("Tutor").setActive(false);
+                newPerk = getPerkByName("prefect").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Slacker" -> {
-                getPerkByName("Slacker").setActive(false);
-                getPerkByName("Lazy").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Slacker to Lazy.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 3;
+            case "little monkey" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("little monkey").setActive(false);
+                newPerk = getPerkByName("playground royalty").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Shy" -> {
-                getPerkByName("Shy").setActive(false); 
-                getPerkByName("Introvert").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Shy to Introvert.");
-                this.SMILE[0] += 4;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 2;
+            case "visionary" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("visionary").setActive(false); 
+                newPerk = getPerkByName("inovater").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Smart" -> {
-                getPerkByName("Smart").setActive(false);
-                getPerkByName("Genius").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Smart to Genius.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
+            case "trial blazer" -> {
+                Perk oldPerk;
+                Perk newPerk;
+                oldPerk = getPerkByName("trial blazer").setActive(false);
+                newPerk = getPerkByName("leader").setActive(true);
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from " + oldPerk.getName() + " to " + newPerk.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Good Kid" -> {
-                getPerkByName("Good Kid").setActive(false);
-                getPerkByName("Angel").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Good Kid to Angel.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
-                break;
-            }
-            case "Rebel" -> {
-                getPerkByName("Rebel").setActive(false);
-                getPerkByName("Rogue").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Rebel to Rogue.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 2;
+            case "ring master" -> {  
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
 
             }
-            case "Rascal" ->  {
-                getPerkByName("Rascal").setActive(false);
-                getPerkByName("Troublemaker").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Rascal to Troublemaker.");
-                this.SMILE[0] += 4;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 2;
-                break;
-            }
-            case "adorable" -> {
-                getPerkByName("Adorable").setActive(false);
-                getPerkByName("Sweetheart").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Adorable to Sweetheart.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 2;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 4;
-                break;
-            }
-            case "Jester" -> {
-                getPerkByName("Jester").setActive(false);
-                getPerkByName("Comedian").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Jester to Comedian.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 4;
-                this.SMILE[2] += 2;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 3;
-                break;
-            }
-            case "Nerd" -> {
-                getPerkByName("Nerd").setActive(false);
-                getPerkByName("Brainiac").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Nerd to Brainiac.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
-                break;
-            }
-            case "Confederate" -> {
-                getPerkByName("Confederate").setActive(false);
-                getPerkByName("Spy").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Confederate to Spy.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
-                break;
-            }
-            case "Lazy" -> {
-                getPerkByName("Lazy").setActive(false);
-                getPerkByName("Sloth").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Lazy to Sloth.");
-                this.SMILE[0] += 3;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 2;
-                this.SMILE[4] += 3;
-                break;
-            }
-            case "Introvert" -> {
-                getPerkByName("Introvert").setActive(false);
-                getPerkByName("Hermit").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Introvert to Hermit.");
 
-                this.SMILE[0] += 4;
-                this.SMILE[1] += 2;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 1;
-                this.SMILE[4] += 2;
+            case "confederate" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Genius" -> {
-                getPerkByName("Genius").setActive(false);
-                getPerkByName("Einstein").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Genius to Einstein.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
+            case "popular" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
             }
-            case "Angel" -> {
-                getPerkByName("Angel").setActive(false);
-                getPerkByName("Saint").setActive(true);
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded from Angel to Saint.");
-                this.SMILE[0] += 2;
-                this.SMILE[1] += 1;
-                this.SMILE[2] += 3;
-                this.SMILE[3] += 4;
-                this.SMILE[4] += 2;
+            case "story teller" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
                 break;
+            }
+            case "prefect" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                break;
+            }
+            case "arbitrator" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                break;
+            }
+            case "playground royalty" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                break;
+            }
+            case "leader" -> {
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                break;
+            }
+            case "arbitator" ->{
+                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have upgraded " + perk2.getName() + ".");
+                if(!maxLevel(0)){
+                    this.SMILE[0] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(1)){
+                    this.SMILE[1] += 0;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(2)){
+                    this.SMILE[2] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(3)){
+                    this.SMILE[3] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                if(!maxLevel(4)){
+                    this.SMILE[4] += 1;
+                } else {
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"This stat has reached the maximum level for your age of " + this.getAge() + ".");
+                    game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can age up by completing Tests and Attending Maturity Workshops.");
+                }
+                break;
+            }
+
+            default -> {
             }
             
         }
@@ -622,32 +1053,32 @@ public void setName(String name) {
         for(int s : SMILE){
             switch(i){
                 case 0 -> {
-                    if(s>5){
+                    if(s>this.getAge()){
                        CRAFT[i] = "Ring Leader";
                     }
                     break;
                 }
                 case 1 -> {
-                    if(s>5){
+                    if(s>this.getAge()){
                         CRAFT[i] = "Care Taker";
                     }
                     break;
                 }
                 case 2 -> {
-                    if(s>5){
+                    if(s>this.getAge()){
                         CRAFT[i] = "Innovator";
                     }
                     break;
                 }
                 case 3 -> {
-                    if(s>5){
+                    if(s>this.getAge()){
                         CRAFT[i] = "Prefect";
                     }
                     break;
                 }
 
                 case 4 -> {
-                    if(s>5){
+                    if(s>this.getAge()){
                         CRAFT[i] = "Leader";
                     }
                     break;
@@ -658,10 +1089,11 @@ public void setName(String name) {
             i++;
             }          
             for(String s2 : CRAFT) {
-                if(s2 != null) {
+                if(s2 != null && !s2.equals("")){ {
                     game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You have unlocked the " + s2 + " CRAFT.");
                 }
             }       }
+        }
     public int getNapTime() {
         int napTime = age+5;
         return napTime;
@@ -884,26 +1316,52 @@ public void setName(String name) {
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You open the " + aThis.getName());
     }
     private void generatePerks() {
-        Perk performer = new Perk("Performer", "You are a performer. You are good at making people smile.", age, age);
-        Perk prefect = new Perk("Prefect", "You are a prefect. You are good at keeping people in line.", age, age);
-        Perk teachers = new Perk("Teachers Pet", "You are a teachers pet. You are good at making teachers smile.", age, age);
-        Perk bookworm = new Perk("Book Worm", "You are a bookworm. You are good at learning.", age, age);
-        Perk explorer = new Perk("Explorer", "You are an explorer. You are good at finding things.", age, age);
-        Perk mediator = new Perk("Mediator", "You are a mediator. You are good at making peace.", age, age);
-        this.perks.add(performer);
-        this.perks.add(prefect);
-        this.perks.add(teachers);
-        this.perks.add(bookworm);
-        this.perks.add(explorer);
-        this.perks.add(mediator);
+        Perk performer = new Perk("Performer", "You are a performer.",0,0);
+        Perk busyBeaver = new Perk("Busy Beaver", "You are a busy beaver.",0,0);
+        Perk playmate = new Perk("Playmate", "You are a playmate.", 0,0);
+        Perk bookworm = new Perk("Bookworm", "You are a bookworm.", 0,0);
+        Perk mediator = new Perk("Mediator", "You are a mediator.", 0,0);
+        Perk tutor = new Perk("Tutor", "You are a tutor.", 0,0);
+        Perk littleMonkey = new Perk("Little Monkey", "You are a little monkey.", 0,0);
+        Perk trialBlazer = new Perk("Trial Blazer", "You are a trial blazer.", 0,0);
+        Perk visionary = new Perk("Visionary", "You are a visionary.", 0,0);
+        Perk ringmaster = new Perk("Ring Master", "You are a ring master.", 1,0);
+        Perk confederate = new Perk ("Confederate", "You are a confederate.", 1,0);
+        Perk popular = new Perk("Popular", "You are popular.", 1,0);
+        Perk storyteller = new Perk("Storyteller", "You are a storyteller.", 1,0);
+        Perk prefect = new Perk("Prefect", "You are a prefect.", 1,0);
+        Perk arbitrator = new Perk("Arbitrator", "You are an arbitrator.", 1,0);
+        Perk playgroundRoyalty = new Perk("Playground Royalty", "You are playground royalty.", 1,0);
+        Perk leader = new Perk("Leader", "You are a leader.", 1,0);
+        perks.add(performer);
+        perks.add(busyBeaver);
+        perks.add(playmate);
+        perks.add(bookworm);
+        perks.add(mediator);
+        perks.add(tutor);
+        perks.add(littleMonkey);
+        perks.add(trialBlazer);
+        perks.add(visionary);
+        perks.add(ringmaster);
+        perks.add(confederate);
+        perks.add(popular);
+        perks.add(storyteller);
+        perks.add(prefect);
+        perks.add(arbitrator);
+        perks.add(playgroundRoyalty);
+        perks.add(leader);
+
     }
     private int getLevel() {
 return this.level;
     }
     private void listPerks() {
         for(Perk perk : perks) {
+            if(perk.getCost()==0){
            game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),perk.getName() + ": " + perk.getDescription());
+           game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),"");
         }
+    }
     }
     private String slotWord(int index) {
         return switch (index) {
@@ -939,47 +1397,68 @@ return this.level;
     }
 
     public void setClass() {
-        switch(this.getPerkName().toLowerCase()){
-            case "performer" -> {
+        switch(this.getPerkName()){
+            case "Performer" -> {
                 this.SMILE[0] = 4;
-                this.SMILE[1] = 2;
-                this.SMILE[2] = 4;
-                this.SMILE[3] = 4;
-                this.SMILE[4] = 2;
-            }
-            case "prefect" -> {
-                this.SMILE[0] = 4;
-                this.SMILE[1] = 2;
-                this.SMILE[2] = 4;
-                this.SMILE[3] = 2;
-                this.SMILE[4] = 4;
-            }
-            case "teachers" -> {
-                this.SMILE[0] = 2;
                 this.SMILE[1] = 4;
                 this.SMILE[2] = 4;
-                this.SMILE[3] = 4;
+                this.SMILE[3] = 2;
                 this.SMILE[4] = 2;
             }
-            case "bookworm" -> {
-                this.SMILE[0] = 4;
-                this.SMILE[1] = 2;
-                this.SMILE[2] = 4;
-                this.SMILE[3] = 4;
-                this.SMILE[4] = 2;
-            }
-            case "explorer" -> {
+            case "Busy Beaver" -> {
                 this.SMILE[0] = 4;
                 this.SMILE[1] = 4;
                 this.SMILE[2] = 2;
                 this.SMILE[3] = 4;
                 this.SMILE[4] = 2;
             }
-            case "mediator" -> {
+            case "Playmate" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 4;
+                this.SMILE[2] = 2;
+                this.SMILE[3] = 2;
+                this.SMILE[4] = 4;
+            }
+            case "Bookworm" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "Mediator" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 2;
+                this.SMILE[4] = 4;
+            }
+            case "Tutor" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 2;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 4;
+            }
+            case "Little Monkey" -> {
+                this.SMILE[0] = 2;
+                this.SMILE[1] = 4;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "Trial Blazer" -> {
                 this.SMILE[0] = 2;
                 this.SMILE[1] = 4;
                 this.SMILE[2] = 4;
                 this.SMILE[3] = 2;
+                this.SMILE[4] = 4;
+            }
+            case "Visionary" -> {
+                this.SMILE[0] = 2;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
                 this.SMILE[4] = 4;
             }
             default ->{
@@ -1002,5 +1481,9 @@ return this.level;
             }
         }
         return null;
+    }
+
+    private boolean maxLevel(int index ) {
+     return this.SMILE[index] > this.getAge();   
     }
 }

@@ -39,8 +39,9 @@ public class Perk {
     public String getName() {
         return this.name;
     }
-    public void setActive(boolean b) {
+    public Perk setActive(boolean b) {
         this.active = b;
+        return this;
     }
     public void setName(String name) {
         this.name = name;

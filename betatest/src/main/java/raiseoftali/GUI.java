@@ -191,6 +191,7 @@ jTextFeild.addActionListener((ActionEvent e) -> {
     }
     });
 tantrumButton.addActionListener(e -> {
+    player.addExperience(65);
 printToJTextArea(jTextArea,Arrays.toString(player.getSMILE()));
 printToJTextArea(jTextArea, player.getPerkName());
 });
