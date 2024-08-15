@@ -191,8 +191,8 @@ jTextFeild.addActionListener((ActionEvent e) -> {
     }
     });
 tantrumButton.addActionListener(e -> {
-this.player.tantrum();
-printToJTextArea(jTextArea, "Tantrum action");
+printToJTextArea(jTextArea,Arrays.toString(player.getSMILE()));
+printToJTextArea(jTextArea, player.getPerkName());
 });
 carebutton.addActionListener((ActionEvent e) -> {
     String[] care = {"Nap","Potty","Tantrum","Eat/Drink","Reflect"};

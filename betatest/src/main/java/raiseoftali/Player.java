@@ -209,7 +209,8 @@ public void setName(String name) {
             this.listPerks();    
             perkpicked = false;
             perkPicker();
-            this.equipUniform();   
+            this.equipUniform();
+            this.setClass();   
             }
     public void tantrum() {
         game.getGUI().printToJTextArea (game.getGUI().getjTextArea(),"You threw a tantrum, got tired, and fell asleep.");
@@ -747,9 +748,9 @@ public void setName(String name) {
         containerByName.addItem(item);
         this.inventory.remove(item);
     }
-    void throwAway(Item item, Item containerByName) {
+    void throwAway(Item item, Item container) {
         this.inventory.remove(item);
-        containerByName.addItem(item);
+        this.currentRoom.getItemByName("Trash Can").addItem(item);
     }
     void potty(Room room) {
         if(this.equipment[2] == null) {
@@ -883,68 +884,18 @@ public void setName(String name) {
         game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You open the " + aThis.getName());
     }
     private void generatePerks() {
-        Perk brat   = new Perk("Brat", "You’re a brat, plain and simple. Your antics make teachers sigh and classmates roll their eyes, but there's no denying you add a bit of chaotic fun to the day.\n", 0, 1);
-        Perk cute  = new Perk("Cute", "You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk classClown = new Perk("Class Clown", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk geek = new Perk("Geek", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
-        Perk outcast = new Perk("Outcast", "You’re the outcast, the loner, the one who doesn’t quite fit in. But that’s okay, because you’ve got your own unique style and a rebellious spirit that sets you apart from the crowd.\n", 0, 1);
-        Perk teacherPet = new Perk("Teacher's Pet", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
-        Perk slacker = new Perk("Slacker", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk shy = new Perk("Shy", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);   
-        Perk smart = new Perk("Smart", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk goodkid = new Perk("Good", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
-        Perk rebel = new Perk("Rebel", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
-        Perk bully = new Perk("Bully", "You’ve got a tough exterior and a knack for getting what you want, even if it means stepping on a few toes. Others might find you intimidating, but deep down, everyone has their reasons.\n", 0, 1);
-        Perk nerd = new Perk("Nerd", "Books, gadgets, and games are your world. You’re the go-to for all things geeky, and your passion for learning makes you stand out as a true nerd.\n", 0, 1);
-        Perk confederate = new Perk("Confederate", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
-        Perk rascal = new Perk("Rascal", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
-        Perk angel = new Perk("Angel", "You’re the teacher’s pet, always following the rules and doing the right thing. Your kindness and helpful nature make you a beacon of goodness.\n", 0, 1);
-        Perk rogue = new Perk("Rogue", "Rules? What rules? You live life on your own terms and never shy away from pushing boundaries. Your rebellious spirit keeps things interesting.\n", 0, 1);
-        Perk troublemaker = new Perk("Troublemaker", "You’re a rascal, a troublemaker, a mischief-maker. You’re always up to something, whether it’s pulling pranks, causing chaos, or just stirring the pot.\n", 0, 1);
-        Perk sweetheart =   new Perk("Sweet Heart", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk comedian = new Perk("Comedian", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk brainiac = new Perk("Brainiac", "You’re a geek through and through, with a passion for all things nerdy. Whether it’s comics, video games, or science fiction, you know your stuff and aren’t afraid to show it.\n", 0, 1);
-        Perk spy = new Perk("Spy", "You help the research staff corral the other rejuves and provide data, is it snitching if no one gets in trouble, no matter what you report?.\n", 0, 1);
-        Perk sloth = new Perk("Sloth", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk introvert = new Perk("Introvert", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
-        Perk genius = new Perk("Genius", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk valedictorian = new Perk("Valedictorian", "You’re the teacher’s pet, always eager to please and quick to raise your hand. Your dedication to your studies and your helpful nature make you a favorite among the staff.\n", 0, 1);
-        Perk lazy = new Perk("Lazy", "You’re the slacker, the one who’s always cutting corners and looking for the easy way out. Your laid-back attitude and devil-may-care approach to schoolwork make you a master of procrastination.\n", 0, 1);
-        Perk jester = new Perk("Jester  ", "You’re the class clown, always ready with a joke or a prank to keep things lively. Your sense of humor is infectious, and you know how to make even the grumpiest teacher crack a smile.\n", 0, 1);
-        Perk adorable = new Perk("Adorable", " You’re the darling of the school, with a smile that can melt hearts and charm that can get you out of almost any trouble. Everyone loves a cutie like you!.\n", 0, 1);
-        Perk braniac = new Perk("Braniac", "You’ve got a brain that’s always buzzing with ideas. Whether it's acing tests or coming up with clever solutions, your intelligence shines bright.\n", 0, 1);
-        Perk hermit = new Perk("Hermit", "You’re the shy one, the quiet one, the one who prefers to blend into the background. But behind that timid exterior lies a world of creativity and imagination just waiting to be unleashed.\n", 0, 1);
-        this.perks.add(spy);
-        this.perks.add(sloth);
-        this.perks.add(brainiac);
-        this.perks.add(comedian);
-        this.perks.add(sweetheart);
-        this.perks.add(troublemaker);
-        this.perks.add(angel);
-        this.perks.add(rogue);
-        this.perks.add(valedictorian);
-        this.perks.add(genius);
-        this.perks.add(introvert);
-        this.perks.add(lazy);
-        this.perks.add(confederate);
-        this.perks.add(nerd);
-        this.perks.add(jester);
-        this.perks.add(adorable);
-        this.perks.add(rebel);
-        this.perks.add(braniac); 
-        this.perks.add(brat);
-        this.perks.add(cute);
-        this.perks.add(smart);
-        this.perks.add(goodkid);
-        this.perks.add(bully);
-        this.perks.add(classClown);
-        this.perks.add(geek);
-        this.perks.add(outcast);
-        this.perks.add(teacherPet);
-        this.perks.add(slacker);
-        this.perks.add(shy);
-        this.perks.add(rascal);
-        this.perks.add(hermit);
+        Perk performer = new Perk("Performer", "You are a performer. You are good at making people smile.", age, age);
+        Perk prefect = new Perk("Prefect", "You are a prefect. You are good at keeping people in line.", age, age);
+        Perk teachers = new Perk("Teachers Pet", "You are a teachers pet. You are good at making teachers smile.", age, age);
+        Perk bookworm = new Perk("Book Worm", "You are a bookworm. You are good at learning.", age, age);
+        Perk explorer = new Perk("Explorer", "You are an explorer. You are good at finding things.", age, age);
+        Perk mediator = new Perk("Mediator", "You are a mediator. You are good at making peace.", age, age);
+        this.perks.add(performer);
+        this.perks.add(prefect);
+        this.perks.add(teachers);
+        this.perks.add(bookworm);
+        this.perks.add(explorer);
+        this.perks.add(mediator);
     }
     private int getLevel() {
 return this.level;
@@ -981,5 +932,75 @@ return this.level;
 
     private void setCRAFT(String[] string) {
         this.CRAFT = string;
+    }
+
+    void removeItem(Item item) {
+        this.inventory.remove(item);
+    }
+
+    public void setClass() {
+        switch(this.getPerkName().toLowerCase()){
+            case "performer" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "prefect" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 2;
+                this.SMILE[4] = 4;
+            }
+            case "teachers" -> {
+                this.SMILE[0] = 2;
+                this.SMILE[1] = 4;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "bookworm" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 2;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "explorer" -> {
+                this.SMILE[0] = 4;
+                this.SMILE[1] = 4;
+                this.SMILE[2] = 2;
+                this.SMILE[3] = 4;
+                this.SMILE[4] = 2;
+            }
+            case "mediator" -> {
+                this.SMILE[0] = 2;
+                this.SMILE[1] = 4;
+                this.SMILE[2] = 4;
+                this.SMILE[3] = 2;
+                this.SMILE[4] = 4;
+            }
+            default ->{
+                this.SMILE[0] = 3;
+                this.SMILE[1] = 3;
+                this.SMILE[2] = 3;
+                this.SMILE[3] = 3;
+                this.SMILE[4] = 3;
+            }
+
+        }
+        }
+
+    
+
+    public String getPerkName() {
+        for(Perk perk : getPerks()) {
+            if(perk.isActive()) {
+                return perk.getName();
+            }
+        }
+        return null;
     }
 }

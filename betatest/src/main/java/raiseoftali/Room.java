@@ -132,7 +132,7 @@ public HashMap<String, Room> exits;
             this.exits = new HashMap<>();
             this.inventory = new ArrayList<>();
             this.rooms = new ArrayList<>();
-            listitems = this.getListItems();
+            getListItems();
             this.name = name;
             this.description = "You are in the " + name;
             this.optional = "";
@@ -315,13 +315,11 @@ if(this.inventory!=null) {
             TRSRoom = new Room(game,"TRS Room");
             janitorialRoom = new Room(game,"Janitorial Room");
             foyer = new Room(game,"Foyer");
-            pantry = new Room(game,"Pantry"); 
-            recoveryRoom.lockType = "keycard";  
+            pantry = new Room(game,"Pantry");   
             kitchen = new Room(game,"Kitchen");
             kitchen.lockType = "keycard";
             mainRoom = new Room(game,"Main Room");
             mainRoom.lockType = "keycard";
-
             dorms = new Room(game,"Dorms");
             dorms.lockType = "keycard";
             bathroom = new Room(game,"Bathroom");
@@ -338,7 +336,7 @@ if(this.inventory!=null) {
              garage.lockType = "metal Key";
             garden = new Room(game,"Garden");
              garden.lockType = "blue card";
-             
+             recoveryRoom.lockType = "keycard";
             driveway = new Room(game,"Driveway");
              driveway.lockType = "metal key";
             frontYard = new Room(game,"Front Yard");
@@ -637,6 +635,7 @@ if(this.inventory!=null) {
                 Container pencilcase = new Container("Pencil Case", "A case with a logo on the front of a happy beaver, This case is a status symbol for the residents of the BusyBeavers Home For Wayward Rejuves.", "Container",game);
                 pencilcase.setTakeable(true);
                 Equipment diaper = new Equipment("Diaper", "A plain white diaper, this diaper is avalible in all sizes. In the dorms or changing rooms throughout the BusyBeavers Home For Wayward Rejuves you can find a diaper changing station with a variety of sizes.", 2, description);
+                diaper.setClassName("bookworm");
                 Item plasticknife = new Item("Plastic Knife", "A plastic knife, this knife is used for cutting food in the cafeteria. The knife is avalible in the cafeteria.", "tool",game); 
                     Item rubberspoon = new Item("Rubber Spoon", "A rubber spoon, this spoon is used for eating food in the cafeteria. The spoon is avalible in the cafeteria.", "tool",game);
                     Item schoolbook = new Item("A guide for the newly rejuvenated", "A book containig advice for those who are in their first cycle.", "toy",game);

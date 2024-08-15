@@ -10,6 +10,7 @@ public class NPC {
     private final  ArrayList<Item> inventory;
     public Item setQuestItem;
     private Game game;
+    private final Item goldStar = new Item("Gold Star", "A shiny gold star", "reward", game);
     public NPC(String name, String description, String type) {
         this.name = name;
         this.description = description;
@@ -53,7 +54,9 @@ public class NPC {
         player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName() + ". I am a " + this.getType().replace("_", " ") + ".");
         if(player.hasItem(this.getQuestItem().getName())){
             player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have the " + this.getQuestItem().getName() + " I need!");
-            this.returnGoldStars(player); 
+            player.getArrayInventory().remove(this.getQuestItem());
+            giveReward(goldStar, player);
+            player.removeItem(this.getQuestItem());
             }
         }
     public void setQuest(Quests quest) {
@@ -81,5 +84,15 @@ public class NPC {
     }
     public void setSetQuestItem(Item setQuestItem) {
         this.setQuestItem = setQuestItem;
+    }
+
+    private void giveReward(Item item, Player player) {
+        switch(item.getName()){
+            case "Gold Star" -> {
+                player.addItem(goldStar);
+            }
+        }
+        player.getArrayInventory().add(item);
+        
     }
 }
