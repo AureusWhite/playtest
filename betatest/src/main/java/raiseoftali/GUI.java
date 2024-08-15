@@ -367,7 +367,7 @@ inventoryButton.addActionListener(e -> {
                     this.player.dropItem(item);
                     }
                 case 2 ->{
-                        this.player.throwAway(item, this.player.getCurrentRoom().getItemByName("Trash Can"));
+                        this.player.throwAway(item);
                         
                     }
                     case 3 -> {

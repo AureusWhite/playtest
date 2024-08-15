@@ -51,7 +51,7 @@ public class NPC {
         return "Blargh";  
     }
     public void dialog(Player player) {
-        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName() + ". I am a " + this.getType().replace("_", " ") + ".");
+        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName().replace("_" , " ") + ". I am a " + this.getType().replace("_", " ") + ".");
         if(player.hasItem(this.getQuestItem().getName())){
             player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have the " + this.getQuestItem().getName() + " I need!");
             player.getArrayInventory().remove(this.getQuestItem());
