@@ -1,111 +1,29 @@
 package raiseoftali;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Room {
-private Game game;
+public static  Room recoveryRoom;
+public static Room room; //default room is static.
+private final Game game;
 private Clock clock;
 private final ArrayList<Room> rooms;
 public List<Item> listitems;
-
-    public static  Room recoveryRoom;
 public Room kitchen,mainRoom,dorms,bathroom,hallway,stairs,basement,attic,
-     garage,garden,driveway,frontYard,backYard,shed,pool,patio,deck,porch,balcony,
-     oof,cubbies,dramaArea,changingRoom,floorPlay,quietArea,homeWorkArea,playHouse,
-     treeHouse,storyBookVillage,pillowPile,snackArea,greenHall,blueHall,redHall,
-     peddleToys,lemonaidStand,toolShed,TRSRoom,janitorialRoom,foyer,pantry,roof;
-
-    public static Room room; //default room is static.
-
-
-public  void lockRooms(Clock clock){
-    switch(clock.getTimeOfDay()) {
-        case "morning" -> {
-            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"It's morning.");
-            basement.setLocked(true);
-            attic.setLocked(true);
-            garage.setLocked(true);
-            garden.setLocked(true);
-            driveway.setLocked(true);
-            frontYard.setLocked(true);
-            backYard.setLocked(true);
-            shed.setLocked(true);
-            pool.setLocked(true);
-            patio.setLocked(true);
-            deck.setLocked(true);
-            porch.setLocked(true);
-            balcony.setLocked(true);
-            roof.setLocked(true);
-            kitchen.setLocked(false);
-            mainRoom.setLocked(false);
-            dorms.setLocked(false);
-            bathroom.setLocked(false);
-            hallway.setLocked(false);
-            stairs.setLocked(false);
-            }
-        case "afternoon" -> {
-            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"It's afternoon.");
-            basement.setLocked(true);
-            attic.setLocked(true);
-            garage.setLocked(true);
-            garden.setLocked(true);
-            driveway.setLocked(true);
-            frontYard.setLocked(true);
-            backYard.setLocked(true);
-            shed.setLocked(true);
-            pool.setLocked(true);
-            patio.setLocked(true);
-            deck.setLocked(true);
-            porch.setLocked(true);
-            balcony.setLocked(true);
-            roof.setLocked(true);
-            }
-        case "evening" -> {
-            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"It's evening.");
-            kitchen.setLocked(true);
-            basement.setLocked(true);
-            attic.setLocked(true);
-            garage.setLocked(true);
-            garden.setLocked(true);
-            driveway.setLocked(true);
-            frontYard.setLocked(true);
-            backYard.setLocked(true);
-            shed.setLocked(true);
-            pool.setLocked(true);
-            patio.setLocked(true);
-            deck.setLocked(true);
-            porch.setLocked(true);
-            balcony.setLocked(true);
-            roof.setLocked(true);
-            }
-        case "Night" -> {
-            game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"It's night.");
-            recoveryRoom.setLocked(false);
-            kitchen.setLocked(true);
-            mainRoom.setLocked(true);
-            dorms.setLocked(true);
-            bathroom.setLocked(false);
-            hallway.setLocked(false);
-            stairs.setLocked(true);
-            basement.setLocked(true);
-            attic.setLocked(true);
-            garage.setLocked(true);
-            garden.setLocked(true);
-            driveway.setLocked(true);
-            frontYard.setLocked(true);
-            backYard.setLocked(true);
-            shed.setLocked(true);
-            pool.setLocked(true);
-            patio.setLocked(true);
-            deck.setLocked(true);
-            porch.setLocked(true);
-            balcony.setLocked(true);
-            roof.setLocked(true);
-        }
-    }    
-}
+         garage,garden,driveway,frontYard,backYard,shed,pool,patio,deck,porch,balcony,
+         oof,cubbies,dramaArea,changingRoom,floorPlay,quietArea,homeWorkArea,playHouse,
+         treeHouse,storyBookVillage,pillowPile,snackArea,greenHall,blueHall,redHall,
+         peddleToys,lemonaidStand,toolShed,TRSRoom,janitorialRoom,foyer,pantry,roof;
+private Item fruit;
+public Item trash;
+private Item test;
+private Item social;
+public Item shinyPenny;
+String type;
 public HashMap<String, Room> exits;
     private String name;
     private ArrayList<Item> inventory;
@@ -118,28 +36,137 @@ public HashMap<String, Room> exits;
     private GUI gui;
     private Item empty;
     private NPC noone;   
-    public NPC getNoone() {
-        return noone;
+    public Room(Game game1, String name,String type) {
+        this.game = game1;
+        this.npcs = new ArrayList<>();
+        this.exits = new HashMap<>();
+        this.inventory = new ArrayList<>();
+        this.rooms = new ArrayList<>();
+        
+
+        this.name = name;
+        this.description = "You are in the " + name;
+        this.optional = "";
+        this.locked = false;
+        this.lockType = "";
+        this.type = type;
     }
 
+    public  void lockRooms(Clock clock){ //locks and unlocks rooms based on the time of day
+        switch(clock.getTimeOfDay()) {
+            case "morning" -> {
+                game.getGUI().printToJTextPane("It's morning.");
+                basement.setLocked(true);
+                attic.setLocked(true);
+                garage.setLocked(true);
+                garden.setLocked(true);
+                driveway.setLocked(true);
+                frontYard.setLocked(true);
+                backYard.setLocked(true);
+                shed.setLocked(true);
+                pool.setLocked(true);
+                patio.setLocked(true);
+                deck.setLocked(true);
+                porch.setLocked(true);
+                balcony.setLocked(true);
+                roof.setLocked(true);
+                kitchen.setLocked(false);
+                mainRoom.setLocked(false);
+                dorms.setLocked(false);
+                bathroom.setLocked(false);
+                hallway.setLocked(false);
+                stairs.setLocked(false);
+                }
+            case "afternoon" -> {
+                game.getGUI().printToJTextPane("It's afternoon.");
+                basement.setLocked(true);
+                attic.setLocked(true);
+                garage.setLocked(true);
+                garden.setLocked(true);
+                driveway.setLocked(true);
+                frontYard.setLocked(true);
+                backYard.setLocked(true);
+                shed.setLocked(true);
+                pool.setLocked(true);
+                patio.setLocked(true);
+                deck.setLocked(true);
+                porch.setLocked(true);
+                balcony.setLocked(true);
+                roof.setLocked(true);
+                }
+            case "evening" -> {
+                game.getGUI().printToJTextPane("It's evening.");
+                kitchen.setLocked(true);
+                basement.setLocked(true);
+                attic.setLocked(true);
+                garage.setLocked(true);
+                garden.setLocked(true);
+                driveway.setLocked(true);
+                frontYard.setLocked(true);
+                backYard.setLocked(true);
+                shed.setLocked(true);
+                pool.setLocked(true);
+                patio.setLocked(true);
+                deck.setLocked(true);
+                porch.setLocked(true);
+                balcony.setLocked(true);
+                roof.setLocked(true);
+                }
+            case "Night" -> {
+                game.getGUI().printToJTextPane("It's night.");
+                recoveryRoom.setLocked(false);
+                kitchen.setLocked(true);
+                mainRoom.setLocked(true);
+                dorms.setLocked(true);
+                bathroom.setLocked(false);
+                hallway.setLocked(false);
+                stairs.setLocked(true);
+                basement.setLocked(true);
+                attic.setLocked(true);
+                garage.setLocked(true);
+                garden.setLocked(true);
+                driveway.setLocked(true);
+                frontYard.setLocked(true);
+                backYard.setLocked(true);
+                shed.setLocked(true);
+                pool.setLocked(true);
+                patio.setLocked(true);
+                deck.setLocked(true);
+                porch.setLocked(true);
+                balcony.setLocked(true);
+                roof.setLocked(true);
+            }
+        }    
+    }
+
+    public NPC getNoone() { //returns the default NPC noone
+        return noone;
+    }
+    
     public void setNoone(NPC noone) {
         this.noone = noone;
     }
 
-    public Room(Game game1, String name) {
-            this.game = game1;
-            this.npcs = new ArrayList<>();
-            this.exits = new HashMap<>();
-            this.inventory = new ArrayList<>();
-            this.rooms = new ArrayList<>();
-            getListItems();
-            this.name = name;
-            this.description = "You are in the " + name;
-            this.optional = "";
-            this.locked = false;
-            this.lockType = "";
-
+    public void initializeRoomFiles() { //initializes the room files and creates them if they don't exist already.
+        this.setDescription(Game.readFile(this.getName().concat("desc")));
+        File mainFile = new File(this.getName().concat(".txt"));
+        File descFile = new File(this.getName().concat("desc.txt"));
+        
+        if(!mainFile.exists()) {
+        try {
+                mainFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(!descFile.exists()) {
+                try {
+                    descFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+    }
 
     public String getDescription() {
             return description;
@@ -195,16 +222,10 @@ if(this.inventory!=null) {
             this.getArrayInventory().remove(item);
         }
     public void addItem(Item item) {
-            game = game.getGame();
-            if(item.getType().equalsIgnoreCase("Container")) {
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You put "+item.getName()+" in the " + this.name);
-                this.getArrayInventory().add(item);
-            } else {
-                game.getGUI().printToJTextArea(game.getGUI().getjTextArea(),"You can't put that in the " + this.name);
-            }
-
+    game.getGUI().printToJTextPane("You put "+item.getName()+" in the " + this.name);
+    this.getArrayInventory().add(item);
         }
-    public NPC getNPCByName(String npcName) {
+    public NPC getNPCByName(String npcName) { //returns the NPC with the given name
             for (NPC npcz : this.npcs) {
                 if (npcz.getName().equals(npcName)) {
                     System.out.println(npcz.getName());
@@ -293,69 +314,69 @@ if(this.inventory!=null) {
             }
             return items;
         }
-    public  void buildRooms(Game game){
-            recoveryRoom = new Room(game, "Recovery Room");
-            cubbies = new Room(game, "Cubbies");
-            dramaArea = new Room(game,"Drama Area");
-            changingRoom = new Room(game,"Changing Room");
-            floorPlay = new Room(game,"Floor Play");
-            quietArea = new Room(game,"Quiet Area");
-            homeWorkArea = new Room(game,"Home Work Area");
-            playHouse = new Room(game,"Play House");
-            treeHouse = new Room(game,"Tree House");
-            storyBookVillage = new Room(game,"Story Book Village");
-            pillowPile = new Room(game,"Pillow Pile");
-            snackArea = new Room(game,"Snack Area");
-            greenHall = new Room(game,"Green Hall");
-            blueHall = new Room(game,"Blue Hall");
-            redHall = new Room(game,"Red Hall");
-            peddleToys = new Room(game,"Peddle Toys");
-            lemonaidStand = new Room(game,"Lemonaid Stand");
-            toolShed = new Room(game,"Tool Shed");
-            TRSRoom = new Room(game,"TRS Room");
-            janitorialRoom = new Room(game,"Janitorial Room");
-            foyer = new Room(game,"Foyer");
-            pantry = new Room(game,"Pantry");   
-            kitchen = new Room(game,"Kitchen");
+    public  void buildRooms(Game game){ //builds the rooms and sets the exits and items for each room in the game world
+            recoveryRoom = new Room(game, "Recovery Room", "Green Room");
+            cubbies = new Room(game, "Cubbies", "Green Room");
+            dramaArea = new Room(game,"Drama Area","Blue Room");
+            changingRoom = new Room(game,"Changing Room","Green Room");
+            floorPlay = new Room(game,"Floor Play","Blue Room");
+            quietArea = new Room(game,"Quiet Area","Green Room");
+            homeWorkArea = new Room(game,"Home Work Area","Blue Room");
+            playHouse = new Room(game,"Play House", "Blue Room");
+            treeHouse = new Room(game,"Tree House", "Blue Room");
+            storyBookVillage = new Room(game,"Story Book Village", "Blue Room");
+            pillowPile = new Room(game,"Pillow Pile","Green Room");
+            snackArea = new Room(game,"Snack Area","Green Room");
+            greenHall = new Room(game,"Green Hall","Green Room");
+            blueHall = new Room(game,"Blue Hall","Blue Room");
+            redHall = new Room(game,"Red Hall","Red Room");
+            peddleToys = new Room(game,"Peddle Toys","Blue Room");
+            lemonaidStand = new Room(game,"Lemonaid Stand","Blue Room");
+            toolShed = new Room(game,"Tool Shed","Blue Room");
+            TRSRoom = new Room(game,"TRS Room","Blue Room");
+            janitorialRoom = new Room(game,"Janitorial Room","Red Room");
+            foyer = new Room(game,"Foyer","Green Room");
+            pantry = new Room(game,"Pantry","Blue Room");   
+            kitchen = new Room(game,"Kitchen","Blue Room");
             kitchen.lockType = "keycard";
-            mainRoom = new Room(game,"Main Room");
+            mainRoom = new Room(game,"Main Room","Green Room");
             mainRoom.lockType = "keycard";
-            dorms = new Room(game,"Dorms");
+            dorms = new Room(game,"Dorms","Green Room");
             dorms.lockType = "keycard";
-            bathroom = new Room(game,"Bathroom");
+            bathroom = new Room(game,"Bathroom","Green Room");
             bathroom.lockType = "keycard";
-            hallway = new Room(game,"Hallway");
+            hallway = new Room(game,"Hallway","Blue Room");
              hallway.lockType = "keycard";
-            stairs = new Room(game,"Stairs");
+            stairs = new Room(game,"Stairs","Blue Room");
              stairs.lockType = "metal Key";
-            basement = new Room(game,"Basement");
+            basement = new Room(game,"Basement","Red Room");
              basement.lockType = "metal Key";
-            attic = new Room(game,"Attic");
+            attic = new Room(game,"Attic","Red Room");
              attic.lockType = "metal Key";
-            garage = new Room(game,"Garage");
+            garage = new Room(game,"Garage","Red Room");
              garage.lockType = "metal Key";
-            garden = new Room(game,"Garden");
+            garden = new Room(game,"Garden","Blue Room");
              garden.lockType = "blue card";
              recoveryRoom.lockType = "keycard";
-            driveway = new Room(game,"Driveway");
+            driveway = new Room(game,"Driveway","Red Room");
              driveway.lockType = "metal key";
-            frontYard = new Room(game,"Front Yard");
+            frontYard = new Room(game,"Front Yard","Blue Room");
              frontYard.lockType = "metal key";
-            backYard = new Room(game,"Back Yard");
+            backYard = new Room(game,"Back Yard","Blue Room");
              backYard.lockType = "metal key";
-            shed = new Room(game,"Shed");
+            shed = new Room(game,"Shed","Red Room");
              shed.lockType = "metal key";
-            pool = new Room(game,"Pool");
+            pool = new Room(game,"Pool","Red Room");
              pool.lockType = "metal key";
-            patio = new Room(game,"Patio");
+            patio = new Room(game,"Patio","Red Room");
              patio.lockType = "metal key";
-            deck = new Room(game,"Deck");
+            deck = new Room(game,"Deck","Blue Room");
              deck.lockType = "metal key";
-            porch = new Room(game,"Porch");
+            porch = new Room(game,"Porch","Blue Room");
              porch.lockType = "metal key";
-            balcony = new Room(game,"Balcony");
+            balcony = new Room(game,"Balcony","Red Room");
              balcony.lockType = "metal key";
-            roof = new Room(game,"Roof");
+            roof = new Room(game,"Roof","Red Room");
              roof.lockType = "metal key";
             // populate rooms with NPCs
             NPC mrsssagely = new NPC("Mrs._Sagely", "The headmistress of the BusyBeavers Home For Wayward Rejuves.", "Teacher");
@@ -368,14 +389,16 @@ if(this.inventory!=null) {
             NPC aureus = new NPC("Aureus", "The head of the playroom and prefect of the playroom.", "Rejuve");
             NPC fuzzy = new NPC("Fuzzy", "A robot in the form of a teddybear, assistant to the residents of the BusyBeavers Home For Wayward Rejuves.", "Rejuve");
             NPC busybeaver = new NPC("Busy_Beaver", "The mascot of the BusyBeavers Home For Wayward Rejuves.", "Animal");
+            NPC aang = new NPC("Aang", "Aang is a young boy who is a resident of the BusyBeavers. He is a rejuve and is in his first cycle.", "Rejuve"); 
             recoveryRoom.npcs.add(mrsssagely);
             Quests fetchQuest = new Quests("Fetch Quest", "Bring me the trash item.", "fetch");
             Quests testQuest = new Quests("Test Quest", "Gain more than 100 experience or bring me the completed test item.", "test");
             Quests socialQuest = new Quests("Social Quest", "Increase your resilience to more than 80 or bring me the social item.", "social");
-            fetchQuest.setQuestRequirement();
-            testQuest.setQuestRequirement();
-            socialQuest.setQuestRequirement();
+            fetchQuest.setQuestRequirement(aang, fruit);
+            testQuest.setQuestRequirement(drwhite, test);
+            socialQuest.setQuestRequirement(dawn, social);
             mrsssagely.setQuest(fetchQuest);
+            aang.setQuest(testQuest);
             mrsssagely.setQuestItem=fetchQuest.getQuestItem();
             drwhite.setQuest(testQuest);
             dawn.setQuest(socialQuest);
@@ -385,6 +408,7 @@ if(this.inventory!=null) {
             mainRoom.npcs.add(fuzzy);
             hallway.npcs.add(jenny);
             dorms.npcs.add(taliber);
+            dorms.npcs.add(aang);
             bathroom.npcs.add(farah);
             attic.npcs.add(aureus);
             roof.npcs.add(drwhite);
@@ -395,7 +419,7 @@ if(this.inventory!=null) {
             foyer.addExit("Kitchen", kitchen);
             kitchen.addExit("Foyer", foyer);
 
-            foyer.addExit("Main_Hall", mainRoom);
+            foyer.addExit("Main_Room", mainRoom);
             mainRoom.addExit("Foyer", foyer);
 
             foyer.addExit("Dorms", dorms);
@@ -549,7 +573,7 @@ if(this.inventory!=null) {
             porch.addExit("front_Yard", frontYard);
             frontYard.addExit("Porch", porch);
             janitorialRoom.addExit("Hallway", hallway);
-
+        // mainRoom exits are all connected to each other
             pillowPile.addExit("Story_Book_Village", storyBookVillage);
             pillowPile.addExit("Home_Work_Area", homeWorkArea);
             pillowPile.addExit("Quiet_Area", quietArea);
@@ -595,7 +619,7 @@ if(this.inventory!=null) {
 
             
             }
-    public  void generateItems() {
+    public  void generateItems() { //generates the items for each room in the game world
                 Item empty1 = new Item("Room is empty", "You can't pick up nothing!", "empty", game);
                 empty1.setTakeable(false);
                 this.inventory.add(empty1);
@@ -641,7 +665,7 @@ if(this.inventory!=null) {
                     Item schoolbook = new Item("A guide for the newly rejuvenated", "A book containig advice for those who are in their first cycle.", "toy",game);
                     Item schoolbook2 = new Item("Stroies from under the bus", "A book containig stories from the residents of the BusyBeavers Home For Wayward Rejuves.", "Book",game); 
                     Item schoolbook3 = new Item("Welcome to BusyBeavers!", "A book containig the history of the BusyBeavers Home For Wayward Rejuves.", "Book",game);
-                    Item shinyPenny = new Item("Shiny Penny", "A shiny penny, this penny is used for making wishes in the fountain. The penny is a reward given for good behaviour", "money",game);
+                    Item shinyPennys = new Item("Shiny Penny", "A shiny penny, this penny is used for making wishes in the fountain. The penny is a reward given for good behaviour", "money",game);
                     Item goldstar = new Item("Gold Star", "A gold star, The star is a reward given for small acts of kindness or good behaviour", "money",game);
                     Item trash = new Item("Trash", "A bit of trash, it is generated when you make a mess. You can throw it away in the trash can.", "trash",game);
                     trash.setTakeable(true);
@@ -702,7 +726,7 @@ if(this.inventory!=null) {
                 mainRoom.getArrayInventory().add(schoolbook);
                 mainRoom.getArrayInventory().add(schoolbook2);
                 mainRoom.getArrayInventory().add(schoolbook3);
-                mainRoom.getArrayInventory().add(shinyPenny);
+                mainRoom.getArrayInventory().add(shinyPennys);
                 mainRoom.getArrayInventory().add(goldstar);
                 dorms.getArrayInventory().add(uniformtop);
                 dorms.getArrayInventory().add(uniformbottom);
@@ -815,7 +839,7 @@ if(this.inventory!=null) {
         }
     public void setGui(GUI gui) {
             this.gui = gui;
-        }
+        }    
     public Item getItemByType(String type) {
             for(Item item : this.getArrayInventory()) {
                 if(item.getType().equalsIgnoreCase(type)) {
@@ -823,7 +847,7 @@ if(this.inventory!=null) {
                 }
             }
             return null;
-        }    
+        }
     public Item[] getContainers() {
         ArrayList<Item> containers = new ArrayList<>();
         for(Item item : this.getArrayInventory()) {
@@ -832,9 +856,6 @@ if(this.inventory!=null) {
             }
         }
         return containers.toArray(Item[]::new);
-    }
-    public static void addItemToRoom(Room room, Item item) {
-        room.getArrayInventory().add(item);
     }
     public String getContainerChoice() {
         Item[] containers = this.getContainers();
@@ -874,6 +895,27 @@ if(this.inventory!=null) {
     public Game getGame() {
         return game;
     }
+    public String listItems() {
+        StringBuilder itemList = new StringBuilder();
+        for (Item item : Player.getCurrentRoom().getArrayInventory()) {
+            itemList.append(item.getName());
+            itemList.append("<br>");
+        }
+        return itemList.toString();
+    }
+
+    public String listPeople() {
+        StringBuilder peopleList = new StringBuilder();
+        if (Player.getCurrentRoom().getNpcs().isEmpty()) {
+            peopleList.append("There is no one here.");
+        }
+        for (NPC peep : Player.getCurrentRoom().getNpcs()) {
+            peopleList.append(peep.getName());
+            peopleList.append("<br>");
+        }
+        return peopleList.toString();
+    }
+
     List<Item> getListItems() {
         
         for (Room roomLI : rooms) {
@@ -884,6 +926,19 @@ if(this.inventory!=null) {
             }
         } 
         return inventory;
+    }
+
+    Item findBrokenItem(Player player) { //finds the first broken item in the player's inventory.
+        for (Item item : player.getArrayInventory()) {
+            if (item.isBroken()) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    String getType() {
+        return type;
     }
 
 }

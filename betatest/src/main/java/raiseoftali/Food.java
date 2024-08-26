@@ -7,7 +7,7 @@ public class Food extends Item{
         
     }
     @Override
-    public void use(Player player, Game game) {
+    public void use(Player player, Game game) { //increases the hunger or thirst of the player based on the type of the food
         if(this.getType().equalsIgnoreCase("drink")) {
             player.setThirst(player.getThirst() + 10);
             if(player.getThirst() > 100) {

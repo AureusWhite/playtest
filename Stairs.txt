@@ -1,2 +1,1 @@
-Stairs
-
+<html> <h1>Stairs</h1><h2>Blue Room</h2><p style="font-size: 24;"></font><br><br><h2> Room Details <h2><br>Blue Room<h3> Items in room</h4><br>Trash Can<br>Trash<br><h3> People in room</h3><br></html>

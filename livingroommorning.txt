@@ -1,6 +1,0 @@
-Room Name: livingroom
-Description: This interior room has a large rug at it's center and pillows all set around it's center for rejuves to sit and read books
-or have books read to them. On the outer rim of the circle sits an equally large sofa, big enough for your feet to not touch.
-Time of Day: morning
-
-Objects in Room:

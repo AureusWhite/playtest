@@ -1,29 +1,24 @@
- .----------------. .----------------. .----------------. .----------------. 
-| .--------------. | .--------------. | .--------------. | .--------------. |
-| |  _______     | | |      __      | | | _____  _____ | | |  _______     | |
-| | |_   __ \    | | |     /  \     | | ||_   _||_   _|| | | |_   __ \    | |
-| |   | |__) |   | | |    / /\ \    | | |  | | /\ | |  | | |   | |__) |   | |
-| |   |  __ /    | | |   / ____ \   | | |  | |/  \| |  | | |   |  __ /    | |
-| |  _| |  \ \_  | | | _/ /    \ \_ | | |  |   /\   |  | | |  _| |  \ \_  | |
-| | |____| |___| | | ||____|  |____|| | |  |__/  \__|  | | | |____| |___| | |
-| |              | | |              | | |              | | |              | |
-| '--------------' | '--------------' | '--------------' | '--------------' |
- '----------------' '----------------' '----------------' '----------------' 
- 
- A text adventure game by JackalFac:E Games©.
- 
- Introduction and prologue:
- 
-In a not-so-distant future, groundbreaking technology has been developed that allows for the reversion of cells into stem cells, effectively 'rejuvenating' the body. This discovery, however, came at a significant cost. Countless wars were waged, and many lives were lost in the pursuit of this miraculous advancement. Ultimately, peace was achieved through the United Nations of Earth (UNE) ruling, which mandated that rejuvenation technology be made available to every living person free of charge.
+<html>
+<pre style='font-family:Courier,monospace;'><strong>
+.----------------. .----------------. .----------------. .----------------. <br>
+| .--------------. | .--------------. | .--------------. | .--------------. |<br>
+| |  _______     | | |      __      | | | _____  _____ | | |  _______     | |<br>
+| | |_   __ \    | | |     /  \     | | ||_   _||_   _|| | | |_   __ \    | |<br>
+| |   | |__) |   | | |    / /\ \    | | |  | | /\ | |  | | |   | |__) |   | |<br>
+| |   |  __ /    | | |   / ____ \   | | |  | |/  \| |  | | |   |  __ /    | |<br>
+| |  _| |  \ \_  | | | _/ /    \ \_ | | |  |   /\   |  | | |  _| |  \ \_  | |<br>
+| | |____| |___| | | ||____|  |____|| | |  |__/  \__|  | | | |____| |___| | |<br>
+| |              | | |              | | |              | | |              | |<br>
+| '--------------' | '--------------' | '--------------' | '--------------' |<br>
+ '----------------' '----------------' '----------------' '----------------'<br>
+ </pre></strong>
+<h2>A text adventure game by JackalFac:E Games.</h2>
 
-Yet, with this newfound functional immortality, society faced unforeseen challenges. The concept of prison, designed to subtract time from a single lifetime, lost its deterrent effect. With infinite lives, incarceration became an obsolete punishment. Interestingly, a peculiar solution emerged: prisoners, now easier to house and feed when reduced in size, were 'cycled' back into childhood rather than being confined to jails.
+<h3>Introduction and Prologue:</h3>
 
-Overpopulation, another glaring issue, required delicate handling to avoid infringing on individual rights. As part of the UNE's ruling, the rejuvenation treatment included a mechanism to inhibit maturity. This control remained in place until individuals proved themselves as functional adults capable of raising children. But where would society find 'children' for adults to practice on? The answer was simple yet unsettling: us.
-
-This led to another complex problem: the rights of the rejuvenated to resume their previous adult activities. When individuals regained their adult memories within immature brains, the results were mixed at best. Initially, rejuvenated adults were allowed to continue their lives with minimal restrictions. This policy soon proved disastrous, as the combination of undeveloped frontal lobes and lost procedural memories led to numerous accidents. For instance, an eight-year-old with the skills of a former race car driver was still prone to making reckless mistakes.
-
-Consequently, the rights and privileges of rejuvenated individuals were systematically stripped away. These measures were implemented with varying degrees of justification. Some restrictions were necessary, while others were arbitrary. Over time, rejuvenated individuals, or 'rejuves,' began to be treated more like children, especially since genuine children became a rarity due to overpopulation.
-
-Despite these changes, it is crucial to remember that we, the rejuvenated, deserve to be treated with dignity and respect. Our right to be seen as more than just children must be upheld, regardless of the societal shifts that have accompanied our extended lifespans.
-
-   
+<p style="font-size: 18;">In a not-so-distant future, groundbreaking technology has been developed that allows for the reversion of cells into stem cells, effectively 'rejuvenating' the body.This discovery, however, came at a significant cost. Wars were waged, and many lives were lost in the pursuit of this miraculous advancement.<br><br>Ultimately, peace was achieved through the United Nations of Earth (UNE) ruling, which mandated that rejuvenation technology be made available to every living person free of charge. Yet, with this newfound functional immortality, society faced unforeseen challenges. The concept of prison, designed to subtract time from a single lifetime, lost its deterrent effect. With a new life at will, incarceration became an obsolete punishment.<br><br>
+Interestingly, a peculiar solution emerged: prisoners, or other undisirables where now easier to house and feed when reduced in size, were 'cycled' back into childhood rather than being confined to jails.<br><br> Overpopulation, became the next glaring issue, this required delicate handling to avoid infringing on individual rights. As part of the UNE's ruling, the rejuvenation treatment included a mechanism to inhibit maturity. This control remained in place until individuals proved themselves as functional adults capable of living adult lives. One of the many consequinces of this is a lack of natural born children<br><br> 
+<h2>Society would find it's missing 'children' us, The rejuvenated.</h2>
+<p style="font-size: 18;"> This led to another complex problem: the rights of the rejuvenated to resume their previous adult activities. When individuals regained their adult memories within immature brains, the results were mixed at best. Initially, rejuvenated adults were allowed to continue their lives with minimal restrictions.<br> This policy soon proved disastrous, as the combination of undeveloped frontal lobes and lost procedural memories led to numerous accidents. For instance, an eight-year-old with the skills of a former race car driver was still prone to reckless driving. Consequently, the rights and privileges of rejuvenated individuals were systematically stripped away. each news story resulted in another adult privlage being take.<br><br> These measures were implemented with varying degrees of justification. Some restrictions were necessary, while others were arbitrary. Over time, rejuvenated individuals, or 'rejuves,' began to be treated more like children, especially since genuine children became a rarity due to overpopulation. Despite these changes, it is crucial to remember that we, the rejuvenated, deserve to be treated with dignity and respect. Our right to be seen as more than just children must be upheld, regardless of the societal shifts that have accompanied our extended lifespans. </font>
+</p>
+</html>

@@ -1,6 +1,0 @@
-Room Name: kitchen
-Description: Unlike the morning susy does not abide slackers or tresspassers in her kitchen during this time. She is to busy to talk right now.
-
-Time of Day: afternoon
-
-Objects in Room:

@@ -18,7 +18,7 @@ public class Clock {
         if (hours == 0) hours = 12;
         int minutes = time % 60;
         String period = time < 720 ? "AM" : "PM";
-        return String.format("%d:%02d %s", hours, minutes, period);
+        return String.format("%d:%02d %s", hours, minutes, period); // displays the time in 12-hour format and adds the name for the period of the day.
     }
     public int getCurrentHour() {
         return time / 60;

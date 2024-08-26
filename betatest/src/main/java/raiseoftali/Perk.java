@@ -15,7 +15,7 @@ public class Perk {
         this.level = 0;
         this.active = false;
     }
-    public void activate() {
+    public void activate() { //activates the perk
         this.active = true;
     }
     public void deactivate() {
@@ -24,13 +24,13 @@ public class Perk {
     public String getDescription() {
         return this.description;
     }
-    public int getCost() {
+    public int getCost() { //returns the cost of the perk
         return this.cost;
     }
     public int getLevel() {
         return this.level;
     }
-    public int getMaxLevel() {
+    public int getMaxLevel() { //returns the max level of the perk
         return this.maxLevel;
     }
     public boolean isActive() {
@@ -49,7 +49,7 @@ public class Perk {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setCost(int cost) {
+    public void setCost(int cost) { //sets the cost of the perk to the given value
         this.cost = cost;
     }
     public void setLevel(int level) {

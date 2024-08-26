@@ -7,9 +7,6 @@ public class Quests {
     private String description;
     private String type;
     public Item questItem;
-    private Item trash;
-    private Item completedTest;
-    private Item shinyPenny;
 
     public Quests(String name, String description, String type) {
         this.name = name;
@@ -51,11 +48,11 @@ public class Quests {
         }
         return false;
     }
-    public void setQuestRequirement() {
+    public void setQuestRequirement(NPC npc , Item questItem) {
         switch(this.type){
-            case "fetch" -> this.questItem = trash;
-            case "test" -> this.questItem = completedTest;
-            case "social" -> this.questItem = shinyPenny;
+            case "fetch" -> this.questItem = questItem;
+            case "test" -> this.questItem = questItem;
+            case "social" -> this.questItem = questItem;
         }
     }
     public void setQuestItem(Item item) {

@@ -1,3 +1,0 @@
-Room Name: bathroom
-Description: blargh
-Time of Day: afternoon

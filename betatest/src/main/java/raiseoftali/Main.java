@@ -13,7 +13,7 @@ public class Main implements Runnable {
             Game game = new Game();
             game.startGame();
             System.out.println("Game started successfully");
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.err.println("Exception in thread: " + e.getMessage());
         }
     }

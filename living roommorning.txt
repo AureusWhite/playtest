@@ -1,3 +1,0 @@
-Room Name: living room
-Description: blargh
-Time of Day: morning

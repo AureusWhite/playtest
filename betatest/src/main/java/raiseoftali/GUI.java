@@ -7,6 +7,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,14 +20,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 
 
 public class GUI extends JFrame {
-private JTextArea jTextArea;
+private JTextPane jTextPane;
 private Player player;
 private final  JTextField jTextFeild;
 private final  JPanel btnPanel;
@@ -39,7 +45,7 @@ private final  Color periwinkle;
 private JLabel statsLabel;
 private final Object lock = new Object();
 private final JButton carebutton;
-private final JButton tantrumButton;
+private final JButton specialButton;
 private final JButton takeButton;
 private final JButton playButton;
 private Game game;
@@ -81,15 +87,14 @@ public GUI(Game game, Player player) {
     // Initialize inputPanel
     inputPanel = new JPanel();
 
-    // Initialize jTextArea
-    jTextArea = new JTextArea(30, 60);
-    jTextArea.setLineWrap(true);
-    jTextArea.setWrapStyleWord(true);
-    jTextArea.setEditable(false);
-    jTextArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
-    jTextArea.setBackground(Color.WHITE);
-    jTextArea.setForeground(Color.BLACK);
-    JScrollPane scrollPane = new JScrollPane(jTextArea);
+    // Initialize jTextPane
+    jTextPane = new JTextPane();
+    jTextPane.setContentType("text/html");
+    jTextPane.setEditable(false);
+    jTextPane.setFont(new Font("Monospaced", Font.PLAIN, 24));
+    jTextPane.setBackground(Color.WHITE);
+    jTextPane.setForeground(Color.BLACK);
+    JScrollPane scrollPane = new JScrollPane(jTextPane);
     scrollPane.setPreferredSize(new Dimension(700, 400));
     scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 @Override
@@ -99,9 +104,7 @@ protected void configureScrollBarColors() {
 }
 });
     add(scrollPane, BorderLayout.CENTER);
-    jTextArea.setLineWrap(true);
-    jTextArea.setWrapStyleWord(true);
-    jTextArea.setEditable(false);
+    jTextPane.setEditable(false);
     
     // Initialize jTextFeild
     jTextFeild = new JTextField(20);
@@ -120,8 +123,8 @@ protected void configureScrollBarColors() {
     inventoryButton.setFont(new Font("Arial", Font.BOLD, 16));
     carebutton = new JButton("care");
     carebutton.setFont(new Font("Arial", Font.BOLD, 16));
-    tantrumButton = new JButton("Tantrum");
-    tantrumButton.setFont(new Font("Arial", Font.BOLD, 16));
+    specialButton = new JButton("Special");
+    specialButton.setFont(new Font("Arial", Font.BOLD, 16));
     playButton = new JButton("Play");
     playButton.setFont(new Font("Arial", Font.BOLD, 16));
 
@@ -132,13 +135,13 @@ protected void configureScrollBarColors() {
     inspectButton.setPreferredSize(buttonSize);
     inventoryButton.setPreferredSize(buttonSize);
     carebutton.setPreferredSize(buttonSize);
-    tantrumButton.setPreferredSize(buttonSize);
+    specialButton.setPreferredSize(buttonSize);
     takeButton.setPreferredSize(buttonSize);
     playButton.setPreferredSize(buttonSize);
 
     // Add buttons to panel
     btnPanel.add(playButton);
-    btnPanel.add(tantrumButton);
+    btnPanel.add(specialButton);
     btnPanel.add(moveButton);
     btnPanel.add(dialogButton);
     btnPanel.add(jTextFeild);
@@ -150,20 +153,20 @@ protected void configureScrollBarColors() {
  // Add borders to components
 statsPanel.setBorder(new LineBorder(Color.BLACK, 2));
 inputPanel.setBorder(new LineBorder(Color.BLACK, 2));
-jTextArea.setBorder(new LineBorder(Color.BLACK, 2));
+jTextPane.setBorder(new LineBorder(Color.BLACK, 2));
 jTextFeild.setBorder(new LineBorder(Color.BLACK, 2));
 moveButton.setBorder(new LineBorder(Color.BLACK, 2));
 dialogButton.setBorder(new LineBorder(Color.BLACK, 2));
 inspectButton.setBorder(new LineBorder(Color.BLACK, 2));
 inventoryButton.setBorder(new LineBorder(Color.BLACK, 2));
 carebutton.setBorder(new LineBorder(Color.BLACK, 2));
-tantrumButton.setBorder(new LineBorder(Color.BLACK, 2));
+specialButton.setBorder(new LineBorder(Color.BLACK, 2));
 takeButton.setBorder(new LineBorder(Color.BLACK, 2));
 playButton.setBorder(new LineBorder(Color.BLACK, 2));
 
     // Add action listeners
 playButton.addActionListener(e -> {
-        String[] inventory = player.getCurrentRoom().getInventory();
+        String[] inventory = Player.getCurrentRoom().getInventory();
         ImageIcon playIcon = new ImageIcon("play.png");
         String selectedItem = (String) JOptionPane.showInputDialog(
             null,
@@ -175,13 +178,13 @@ playButton.addActionListener(e -> {
             inventory[0]
         );
         if (selectedItem != null) {
-            Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
+            Item item = Player.getCurrentRoom().getItemByName(selectedItem);
             if (item != null) {
                 this.player.play(item);
-                printToJTextArea(jTextArea, "Playwith action with " + selectedItem);
+                printToJTextPane("Playwith action with " + selectedItem);
             } else {
                 System.out.println("The selected item is null.");
-                printToJTextArea(jTextArea, "The selected item is not available.");
+                printToJTextPane("The selected item is not available.");
             }
         }
     });
@@ -190,10 +193,31 @@ jTextFeild.addActionListener((ActionEvent e) -> {
         lock.notify();
     }
     });
-tantrumButton.addActionListener(e -> {
-    player.addExperience(65);
-printToJTextArea(jTextArea,Arrays.toString(player.getSMILE()));
-printToJTextArea(jTextArea, player.getPerkName());
+specialButton.addActionListener(e -> {
+    for(String ss : player.getCRAFT()){
+        if(ss.isEmpty()){
+
+            } else {
+                switch(ss){
+                    case "Ring Leader" -> {
+                        player.useSpecial("Ring Leader");
+                    }
+                    case "Care Taker" -> {
+                        player.useSpecial("Care Taker");
+                    }
+                    case "innovator" -> {
+                        player.useSpecial("Innovator");
+                    }
+                    case "Prefect" -> {
+                        player.useSpecial("Prefect");
+                    }
+                    case "Leader" -> {
+                        player.useSpecial("Leader");
+                    }
+                }
+        }
+
+    }
 });
 carebutton.addActionListener((ActionEvent e) -> {
     String[] care = {"Nap","Potty","Tantrum","Eat/Drink","Reflect"};
@@ -215,20 +239,24 @@ carebutton.addActionListener((ActionEvent e) -> {
         switch (selectedCare) {
             case "Nap" -> {
                 player.nap();
-                printToJTextArea(jTextArea, "Nap action");
+                printToJTextPane( "Nap action");
                 game.moveTime(player.getNapTime());
             }
             case "Potty" -> {
-                player.potty(player.currentRoom);
-                printToJTextArea(jTextArea, "Potty action");
+                player.potty(Player.currentRoom);
+                printToJTextPane( "Potty action");
             }
             case "Eat/Drink" -> {
-                player.eatDrink();
-                printToJTextArea(jTextArea, "Eat/Drink action");
+                try {
+                    player.eatDrink();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                printToJTextPane( "Eat/Drink action");
             }
             case "Reflect" -> {
                 player.reflect();
-                printToJTextArea(jTextArea, "Reflect action");
+                printToJTextPane( "Reflect action");
             }
         }
     }
@@ -237,7 +265,7 @@ moveButton.addActionListener(new ActionListener() {
         private boolean moveSuccessful = false; 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String[] exits = player.getCurrentRoom().getExits();
+            String[] exits = Player.getCurrentRoom().getExits();
             for (int i = 0; i < exits.length; i++) {
                 exits[i] = exits[i].replace("_"," ");
                 
@@ -257,8 +285,15 @@ moveButton.addActionListener(new ActionListener() {
             );
             if (selectedExit != null) {
                 // Handle the selected exit
-                player.setCurrentRoom(player.getCurrentRoom().getExit(selectedExit.replace(" ", "_")));
-                game.getGUI().printToJTextArea(jTextArea, Game.readFile(selectedExit));
+                player.setCurrentRoom(Player.getCurrentRoom().getExit(selectedExit.replace(" ", "_")));
+                File file = new File(Player.getCurrentRoom().getName().concat(".txt"));
+                try {
+                    Player.getCurrentRoom().initializeRoomFiles();
+                    game.writeRoomFile(file, Player.getCurrentRoom());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                game.getGUI().printToJTextPane( Game.readFile(selectedExit));
                 moveSuccessful = true;
                 if (!moveSuccessful) {
                     System.out.println("There is no exit in that direction.");
@@ -267,7 +302,7 @@ moveButton.addActionListener(new ActionListener() {
     }
     });
 dialogButton.addActionListener(e -> {
-        Room currentRoom = this.player.getCurrentRoom();
+        Room currentRoom = Player.getCurrentRoom();
         String[] npcs = currentRoom.getNPCs();
         for (int i = 0; i < npcs.length; i++) {
             npcs[i] = npcs[i].replace("_"," ");
@@ -290,7 +325,7 @@ dialogButton.addActionListener(e -> {
                 JOptionPane.showMessageDialog(null, "There are no NPCs in the room.");
                 return;
             }
-            NPC npc = player.getCurrentRoom().getNPCByName(selectedNPC.replace(" ", "_"));
+            NPC npc = Player.getCurrentRoom().getNPCByName(selectedNPC.replace(" ", "_"));
             System.out.println("Selected npc: " + selectedNPC);
             npc.dialog(player);
 
@@ -303,7 +338,7 @@ dialogButton.addActionListener(e -> {
         }
     });
 inspectButton.addActionListener(e -> {
-        String[] inventory = this.player.getCurrentRoom().getInventory();
+        String[] inventory = Player.getCurrentRoom().getInventory();
         ImageIcon inspectIcon = new ImageIcon("Interact.png");
         String selectedItem = (String) JOptionPane.showInputDialog(
             null,
@@ -317,14 +352,21 @@ inspectButton.addActionListener(e -> {
         if (selectedItem != null) {
             switch(selectedItem) {
                 case "Snack Dispenser", "Art Supplies" -> {
-                    Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
+                    Item item = Player.getCurrentRoom().getItemByName(selectedItem);
+                try {
                     item.use(player,game);
-                    printToJTextArea(game.getGUI().getjTextArea(), "You used the " + item.getName());
+                } catch (FileNotFoundException ex) {
+                }
+                    printToJTextPane( "You used the " + item.getName());
                 }
                 default -> {
-                    Item item = this.player.getCurrentRoom().getItemByName(selectedItem);
-                    item.use(player,game);
-                    printToJTextArea(game.getGUI().getjTextArea(), "You interacted with the " + item.getName());
+                    Item item = Player.getCurrentRoom().getItemByName(selectedItem);
+                    try {
+                        item.use(player,game);
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                    printToJTextPane( "You interacted with the " + item.getName());
                 }
                 
             }
@@ -361,7 +403,11 @@ inventoryButton.addActionListener(e -> {
             Item item = this.player.getItemByName(selectedItem);
             switch (action) {
                 case 0 ->{
-                item.use(player,game);
+                try {
+                    item.use(player,game);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
                 }
                 case 1 ->                     {
                     this.player.dropItem(item);
@@ -372,7 +418,7 @@ inventoryButton.addActionListener(e -> {
                     }
                     case 3 -> {
                         if (item != null) {
-                            Item[] containers = this.player.getCurrentRoom().getContainers();
+                            Item[] containers = Player.getCurrentRoom().getContainers();
                             if (containers != null && containers.length > 0) {
                                 String[] containerNames = Arrays.stream(containers)
                                                                 .map(Item::getName)
@@ -390,7 +436,7 @@ inventoryButton.addActionListener(e -> {
                                     containerNames[0]
                                 );
                                 if (selectedContainer != null) {
-                                    this.player.putItem(item, this.player.getCurrentRoom().getContainerByName(selectedContainer));
+                                    this.player.putItem(item, Player.getCurrentRoom().getContainerByName(selectedContainer));
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(null, "No containers available in the current room.");
@@ -428,7 +474,7 @@ takeButton.addActionListener(e -> {
             // Handle the selected exit
             System.out.println("Selected item: " + selectedItem);
 
-            this.player.takeItem(this.player.currentRoom.getItemByName(selectedItem));
+            this.player.takeItem(Player.currentRoom.getItemByName(selectedItem));
             boolean takeSuccessful = true;
             if (!takeSuccessful) {
                 System.out.println("There is no item by that name.");
@@ -438,44 +484,44 @@ takeButton.addActionListener(e -> {
 public Game getGame() {
     return game;
 }
-public String[] getItemChoices() {
+public String[] getItemChoices() { //returns the item choices for the dialog box
         return itemChoices;
     }
 
-public void setItemChoices(String[] itemChoices) {
+public void setItemChoices(String[] itemChoices) { //sets the item choices for the dialog box
         this.itemChoices = itemChoices;
     }
-public String[] getNpcChoices() {
+public String[] getNpcChoices() { //returns the npc choices for the dialog box
         return npcChoices;
     }
-public void setNpcChoices(String[] npcChoices) {
+public void setNpcChoices(String[] npcChoices) { //sets the npc choices for the dialog box
         this.npcChoices = npcChoices;
     }
-public String[] getRoomChoices() {
+public String[] getRoomChoices() { //returns the room choices for the dialog box
         return roomChoices;
     }
-public void setRoomChoices(String[] roomChoices) {
+public void setRoomChoices(String[] roomChoices) { //sets the room choices for the dialog box
         this.roomChoices = roomChoices;
     }
-public JTextField getjTextFeild() {
+public JTextField getjTextFeild() { 
         return jTextFeild;
     }
-public JTextArea getjTextArea() {
-        return jTextArea;
+public JTextPane getjTextPane() {
+        return jTextPane;
     }
-public synchronized  String getInput(){
+public synchronized  String getInput(){ //returns the input from the text field and clears the text field
         String input = jTextFeild.getText();
         jTextFeild.setText("");
         return input;
     }
-    public Item takeItemByName(Container container, String itemName) {
+    public Item takeItemByName(Container container, String itemName) { //takes an item from the container by name
         Item item = container.getItemByName(itemName);
         if (item != null) {
             container.getItems().remove(item);
         }
         return item;
     }
-public void waitForInput() {
+public void waitForInput() { //waits for the user to input something
     synchronized (lock) {
         try {
             lock.wait();
@@ -487,12 +533,19 @@ public void waitForInput() {
 
     this.setVisible(true);
 }
-public void printToJTextArea(JTextArea jTextArea2, String message) {
-    player.updateStatus();
-jTextArea.append(message + "\n");
-jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
-    
+public void printToJTextPane(String newText) { //converts the text to html and prints it to the text pane
+    HTMLEditorKit editorKit = (HTMLEditorKit) jTextPane.getEditorKit();
+    HTMLDocument doc = (HTMLDocument) jTextPane.getDocument();
+
+    try {
+
+        editorKit.insertHTML(doc, doc.getLength(), "<p style=\"font-size: 24;\">"+ newText.concat("<br>"), 0, 0, null);
+    } catch (BadLocationException | IOException e) {
+        e.printStackTrace();
+    }
+    jTextPane.setCaretPosition(doc.getLength());
 }
+
      public JLabel getStatsLabel() {
         return statsLabel;
     }
@@ -510,8 +563,8 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
             return equips;
         }
 
-        public void setjTextArea(JTextArea jTextArea) {
-            this.jTextArea = jTextArea;
+        public void setjTextPane(JTextPane jTextPane) {
+            this.jTextPane = jTextPane;
         }
         public Player getPlayer() {
             return player;
@@ -519,7 +572,7 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
         public void setPlayer(Player player) {
             this.player = player;
         }
-        public Color getPeriwinkle() {
+        public Color getPeriwinkle() { //returns the color periwinkle default color for the GUI
             return periwinkle;
         }
         public Object getLock() {
@@ -531,9 +584,9 @@ jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
         public void setItems(List<Item> items) {
             this.items = items;
         }
-        private String[] getNonNullItemNames() {
+        private String[] getNonNullItemNames() { //returns the names of the items that are not null
 
-            List<Item> itemN = (List<Item>) player.currentRoom.getListItems();
+            List<Item> itemN = (List<Item>) Player.currentRoom.getListItems();
             return itemN.stream()
                     .filter(Item::isTakeable)
                     .map(Item::getName)

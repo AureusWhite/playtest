@@ -1,5 +1,0 @@
-Room Name: livingroom
-Description: The noice here is real, dozens of screeching giggling kids run amock, maybe you're one of them?
-Time of Day: afternoon
-
-Objects in Room:

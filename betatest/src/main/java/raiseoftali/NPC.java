@@ -20,7 +20,7 @@ public class NPC {
         this.addItem(trash);
         this.questItem = trash;
     }
-    public Item getQuestItem() {
+    public Item getQuestItem() { //returns the quest item of the NPC 
         return questItem;
     }
     public void setQuestItem(Item questItem) {
@@ -35,7 +35,7 @@ public class NPC {
     public String getName() {
         return name;
     }
-    public String getType() {
+    public String getType() { //returns the type of the NPC. Teacher, Rejuve, etc.
         return type;
     }
     public void setDescription(String description) {
@@ -47,16 +47,16 @@ public class NPC {
     public void setType(String type) {
         this.type = type;
     }
-    public String interact(Player player) {
+    public String interact(Player player) { //returns a string that is printed to the GUI when the player interacts with the NPC.
         return "Blargh";  
     }
-    public void dialog(Player player) {
-        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "Hello, I am " + this.getName().replace("_" , " ") + ". I am a " + this.getType().replace("_", " ") + ".");
+    public void dialog(Player player) { //prints the NPC's greeting to the GUI and checks if the player has the quest item. If the player has the quest item, the NPC will take the item and give the player a reward.
+        player.getGame().getGUI().printToJTextPane( "Hello, I am " + this.getName().replace("_" , " ") + ". I am a " + this.getType().replace("_", " ") + ".");
         if(player.hasItem(this.getQuestItem().getName())){
-            player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have the " + this.getQuestItem().getName() + " I need!");
-            player.getArrayInventory().remove(this.getQuestItem());
+            player.getGame().getGUI().printToJTextPane( "You have the " + this.getQuestItem().getName() + " I need!");
+            player.removeItem(player.getItemByName(this.getQuestItem().getName()));
+            player.getGame().getGUI().printToJTextPane( "You have given me the " + this.getQuestItem().getName() + "!");
             giveReward(goldStar, player);
-            player.removeItem(this.getQuestItem());
             }
         }
     public void setQuest(Quests quest) {
@@ -66,11 +66,11 @@ public class NPC {
     public Quests getQuest() {
         return quest;
     }
-    public void returnGoldStars(Player player) {
+    public void returnGoldStars(Player player) { //takes a gold star from the player and gives the player 100 experience points.
         player.getArrayInventory().remove(player.getItemByName("Gold Star"));
         player.addExperience(100);
-        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have given me a Gold Star!");
-        player.getGame().getGUI().printToJTextArea(player.getGame().getGUI().getjTextArea(), "You have gained 100 experience points!");
+        player.getGame().getGUI().printToJTextPane( "You have given me a Gold Star!");
+        player.getGame().getGUI().printToJTextPane( "You have gained 100 experience points!");
 
     }
     private void addItem(Item trash) {
@@ -86,13 +86,12 @@ public class NPC {
         this.setQuestItem = setQuestItem;
     }
 
-    private void giveReward(Item item, Player player) {
+    private void giveReward(Item item, Player player) { //gives the player a reward based on the item given to the NPC.
         switch(item.getName()){
             case "Gold Star" -> {
                 player.addItem(goldStar);
             }
         }
-        player.getArrayInventory().add(item);
         
     }
 }

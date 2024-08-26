@@ -1,6 +1,0 @@
-Room Name: bedroom
-Description: The blinds are automatic and roll up in the morning, no way to stop it, it's one of those in the glass ones. the east facing window
-blasts the morning sun to rouse even the sleepist of rejuves.
-Time of Day: morning
-
-Objects in Room:

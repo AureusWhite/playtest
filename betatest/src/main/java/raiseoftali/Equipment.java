@@ -7,10 +7,10 @@ public class Equipment extends Item{
     private String className;
     private boolean equpped = false;
 
-    public boolean isEqupped() {
+    public boolean isEqupped() { //returns true if the equipment is equipped
         return equpped;
     }
-    public void setEqupped(boolean equpped) {
+    public void setEqupped(boolean equpped) { //sets the equipment to equipped or not
         this.equpped = equpped;
     }
     public Equipment(String name, String description, int slot, String type) {
@@ -20,14 +20,14 @@ public class Equipment extends Item{
         this.className = "none";
     }
     @Override
-    public String getType() {
+    public String getType() { //returns the type of the item
         return type;
     }
     @Override
-    public void setType(String type) {
+    public void setType(String type) { //sets the type of the item
         this.type = type;
     }
-    public void equip(Player player) {
+    public void equip(Player player) { //equips the item or unequips it if it is already equipped
         if(!this.isEqupped()){
             player.equip(this, this.slot);
             this.setEqupped(true);
@@ -37,7 +37,7 @@ public class Equipment extends Item{
     }
     }
     @Override
-    public void use(Player player, Game game) {
+    public void use(Player player, Game game) { //calls the equip method when the item is used by the player.
         this.equip(player);
     }
     public void unequip(Player player) {
@@ -46,17 +46,17 @@ public class Equipment extends Item{
         player.setSMILE(this.statDebuff(player));    
     }
     @Override
-    public int getSlot() {
+    public int getSlot() { //returns the slot of the equipment
         return slot;
     }
-    public void setSlot(int slot) {
+    public void setSlot(int slot) { //sets the slot of the equipment
         this.slot = slot;
     }
     @Override
     public String toString() {
         return "Name: " + this.getName() + "\nDescription: " + this.getDescription() + "\nSlot: " + this.getSlot();
     }
-    public int[] StatBoost(Player player) {
+    public int[] StatBoost(Player player) { //returns the stat boost of the equipment based on the class of the player
         int[] stats = new int[5];
         switch (this.className.toLowerCase()) {
             case "performer" ->{
@@ -111,7 +111,7 @@ public class Equipment extends Item{
         }
         return  stats;
     }
-    public int[] statDebuff(Player player){
+    public int[] statDebuff(Player player){ //undoes the stat boost of the equipment based on the class of the player
         int[] stats = new int[5];
         switch (this.className.toLowerCase()) {
             case "performer" ->{
@@ -167,7 +167,7 @@ public class Equipment extends Item{
         return  stats;
     }
 
-    void setClassName(String string) {
+    void setClassName(String string) { //sets the class name of the equipment.
         this.className = string.toLowerCase();
     }
 }

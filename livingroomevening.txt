@@ -1,6 +1,0 @@
-Room Name: livingroom
-Description: A dimly lit room flashes with the brighter light of the projecor set up here, it porjects onto a screen unlike a regular TV
-this is to prevent breaking of the electronics, the screen is just a bit of whiteboard heald to the wall with a mount.
-Time of Day: evening
-
-Objects in Room:
