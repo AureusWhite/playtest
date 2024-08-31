@@ -1,1 +1,0 @@
-<html> <h1><center><Strong>Foyer</h1></center></Stong><p style="font-size: 24;"></font><h2> Room Details </h2>Green Room<br><br><Strong> Items in room</Strong><br>Trash Can<br>Trash<br><br><Strong>People in room</Strong><br>There is no one here.<br><br></html>

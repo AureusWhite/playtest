@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.event.HyperlinkEvent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
@@ -41,7 +44,7 @@ private final JButton moveButton;
 private final JButton inspectButton;
 private final  JPanel statsPanel;
 private String[] roomChoices, npcChoices, itemChoices;
-private final  Color periwinkle;
+private final  Color periwinkle, lightBlue, lightPink;
 private JLabel statsLabel;
 private final Object lock = new Object();
 private final JButton carebutton;
@@ -53,6 +56,8 @@ public List<Item> items;
 public GUI(Game game, Player player) {
     this.player = player;
     periwinkle = new Color(204, 204, 255);
+    lightBlue = new Color(209, 202, 237);
+    lightPink = new Color(250, 162, 162);
     this.setVisible(true);
     
     // Initialize JFrame 
@@ -92,8 +97,18 @@ public GUI(Game game, Player player) {
     jTextPane.setContentType("text/html");
     jTextPane.setEditable(false);
     jTextPane.setFont(new Font("Monospaced", Font.PLAIN, 24));
-    jTextPane.setBackground(Color.WHITE);
-    jTextPane.setForeground(Color.BLACK);
+    jTextPane.setBackground(lightBlue);
+    jTextPane.setForeground(lightPink);
+    jTextPane.addHyperlinkListener((HyperlinkEvent e) -> {
+    if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+        if (e.getURL() != null) {
+            String filePath = e.getURL().getPath();
+            filePath = filePath.substring(0,filePath.indexOf(".txt"));
+            String content = Game.readFile(filePath);
+            showPopupWithContent(content);
+        }
+    }
+    });
     JScrollPane scrollPane = new JScrollPane(jTextPane);
     scrollPane.setPreferredSize(new Dimension(700, 400));
     scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
@@ -180,7 +195,7 @@ playButton.addActionListener(e -> {
         if (selectedItem != null) {
             Item item = Player.getCurrentRoom().getItemByName(selectedItem);
             if (item != null) {
-                this.player.play(item);
+                this.player.playedWith(item);
                 printToJTextPane("Playwith action with " + selectedItem);
             } else {
                 System.out.println("The selected item is null.");
@@ -250,7 +265,6 @@ carebutton.addActionListener((ActionEvent e) -> {
                 try {
                     player.eatDrink();
                 } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
                 }
                 printToJTextPane( "Eat/Drink action");
             }
@@ -291,7 +305,6 @@ moveButton.addActionListener(new ActionListener() {
                     Player.getCurrentRoom().initializeRoomFiles();
                     game.writeRoomFile(file, Player.getCurrentRoom());
                 } catch (IOException e1) {
-                    e1.printStackTrace();
                 }
                 game.getGUI().printToJTextPane( Game.readFile(selectedExit));
                 moveSuccessful = true;
@@ -364,7 +377,6 @@ inspectButton.addActionListener(e -> {
                     try {
                         item.use(player,game);
                     } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();
                     }
                     printToJTextPane( "You interacted with the " + item.getName());
                 }
@@ -374,7 +386,7 @@ inspectButton.addActionListener(e -> {
     });
 inventoryButton.addActionListener(e -> {
         
-        String[] options = {"Use", "Drop","Throw Away","Put up"};
+        String[] options = {"Use", "Drop","Throw Away","Put up","give"};
         ImageIcon inventoryIcon = new ImageIcon("Inventory.png");
         String selectedItem = (String) JOptionPane.showInputDialog(
             null,
@@ -406,7 +418,6 @@ inventoryButton.addActionListener(e -> {
                 try {
                     item.use(player,game);
                 } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
                 }
                 }
                 case 1 ->                     {
@@ -440,6 +451,40 @@ inventoryButton.addActionListener(e -> {
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(null, "No containers available in the current room.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: Item not found.");
+                        }
+                    }
+                    case 4 -> {
+                        if (item != null) {
+                            String[] npcs = Player.getCurrentRoom().getNPCs();
+                            if (npcs != null && npcs.length > 0) {
+                                String[] npcNames = Arrays.stream(npcs)
+                                                .map(n -> n.replace("_", " "))
+                                                .toArray(String[]::new);
+                                JOptionPane.showMessageDialog(null, 
+                                    "Give it to who? " + item.getName()
+                                );
+                                String selectedNPC = (String) JOptionPane.showInputDialog(
+                                    null,
+                                    "Who would you like to give " + item.getName() + " to?",
+                                    "NPCs",
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    null,
+                                    npcNames,
+                                    npcNames[0]
+                                );
+                                if (selectedNPC != null) {
+                                    NPC npc = Player.getCurrentRoom().getNPCByName(selectedNPC.replace(" ", "_"));
+                                    if (npc != null) {
+                                        this.player.giveItem(item, npc);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Error: NPC not found.");
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No NPCs available in the current room.");
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Error: Item not found.");
@@ -506,6 +551,22 @@ public void setRoomChoices(String[] roomChoices) { //sets the room choices for t
 public JTextField getjTextFeild() { 
         return jTextFeild;
     }
+    private void showPopupWithContent(String content) {
+        JTextPane textPane = new JTextPane();
+        textPane.setContentType("text/html");
+        textPane.setText(content);
+        textPane.setEditable(false);
+    
+        JScrollPane scrollPane = new JScrollPane(textPane);
+        scrollPane.setPreferredSize(new Dimension(500, 400));
+    
+        JDialog dialog = new JDialog((Frame) null, "File Content", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.add(scrollPane, BorderLayout.CENTER);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null); // Center the dialog
+        dialog.setVisible(true);
+    }
 public JTextPane getjTextPane() {
         return jTextPane;
     }
@@ -539,9 +600,8 @@ public void printToJTextPane(String newText) { //converts the text to html and p
 
     try {
 
-        editorKit.insertHTML(doc, doc.getLength(), "<p style=\"font-size: 24;\">"+ newText.concat("<br>"), 0, 0, null);
+        editorKit.insertHTML(doc, doc.getLength(), "<p style=\"font-size: 16;\">"+ newText.concat("<br>"), 0, 0, null);
     } catch (BadLocationException | IOException e) {
-        e.printStackTrace();
     }
     jTextPane.setCaretPosition(doc.getLength());
 }
@@ -585,7 +645,6 @@ public void printToJTextPane(String newText) { //converts the text to html and p
             this.items = items;
         }
         private String[] getNonNullItemNames() { //returns the names of the items that are not null
-
             List<Item> itemN = (List<Item>) Player.currentRoom.getListItems();
             return itemN.stream()
                     .filter(Item::isTakeable)

@@ -11,7 +11,7 @@ public class Food extends Item{
         if(this.getType().equalsIgnoreCase("drink")) {
             player.setThirst(player.getThirst() + 10);
             if(player.getThirst() > 100) {
-                player.bldderFull(player.getThirst() - 100);
+                player.bladderFull(player.getThirst() - 100);
                 player.setThirst(100);
                 
             }

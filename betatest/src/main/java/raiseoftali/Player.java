@@ -2,36 +2,28 @@ package raiseoftali;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Player {
+public final class Player {
 
-    private int thirst, bladder, hunger, age, experience, money, resilience, level, maturity;
     public static Room currentRoom;
+    public static Room getCurrentRoom() {
+        return currentRoom;
+    }
+    private int thirst, bladder, hunger, age, experience, money, resilience, level, maturity;
     private ArrayList<Item> inventory;
     private ArrayList<Quests> quests;
     private String[] CRAFT;
     private int[] SMILE;
-    private Item item, animalCrackerBox, puddle;
-    public Item getAnimalCrackerBox() {
-        return animalCrackerBox;
-    }
-
-    public Item getPuddle() {
-        return puddle;
-    }
-
+    private Item item;
     private String name, description, optional;
     private ArrayList<Perk> perks;
     private boolean perkpicked, agePicked;
     public Game game;
-
     public Quests currentQuest;
     private Equipment[] equipment;
-
     public Player(Game game) {
         this.setStats(); 
         this.generatePerks();
         }
-
     public void setStats() {
         this.setHunger(100);
         this.setThirst(100);
@@ -63,26 +55,32 @@ public class Player {
     public void removeQuest(Quests quest) {
         this.quests.remove(quest);
     }
-public int[] getSMILE() {
+    public int[] getSMILE() {
     return SMILE;
 }
-public void setSMILE(int[] sMILE) {
+    public void setSMILE(int[] sMILE) {
     SMILE = sMILE;
 }
-public ArrayList<Quests> getQuests() {
+    public ArrayList<Quests> getQuests() {
     return quests;
 }
-public void setQuests(ArrayList<Quests> quests) {
+    public void reciveitem(NPC npc, Item item) {
+    if(item.isQuestItem()){
+        setQuest(npc.getQuest());
+    }
+    this.inventory.add(item);
+}
+    public void setQuests(ArrayList<Quests> quests) {
     this.quests = quests;
 }
-public void takeItem(Item item) {
+    public void takeItem(Item item) {
     if(item.isTakeable()){
     inventory.add(item);
     getCurrentRoom().removeItem(item);
 }else {
     game.getGUI().printToJTextPane("You can't take that item.");
 }
-}
+}  
     public void dropItem(Item item) {
         if(item.getName().equals("ID")||item.getName() == null) {
             game.getGUI().printToJTextPane("You can't drop that item.");
@@ -90,7 +88,7 @@ public void takeItem(Item item) {
         inventory.remove(item);
         getCurrentRoom().addItem(item);
     }
-    }  
+    }
     public String[] getInventory() {
         if(inventory.isEmpty()) {
             return new String[]{"Empty"};
@@ -137,7 +135,7 @@ return this.experience;
     public String inspect(String selectedItem) {
         return this.getItemByName(selectedItem).getDescription();
     }
-public void setName(String name) {
+    public void setName(String name) {
     this.name = name;
 }
     public void setMoney(int money) {
@@ -160,6 +158,9 @@ public void setName(String name) {
 
                     }
                 }
+            }
+    public void giveItem(Item item, NPC npc) {
+                npc.reciveitem(item, this);
             }
     public void setPerks(ArrayList<Perk> perks) {
             this.perks = perks;
@@ -244,7 +245,7 @@ public void setName(String name) {
         game.getGUI().printToJTextPane ("You threw a tantrum, got tired, and fell asleep.");
         this.nap();
         updateStatus();
-    }
+    }        
     public void nap() {
         game.getGUI().printToJTextPane ("You took a nap and feel better.");
         game.getGUI().printToJTextPane ("You are now " + this.getResilience() + " resilient.");
@@ -256,7 +257,7 @@ public void setName(String name) {
             time = 5;
         }
         game.moveTime(time);
-    }        
+    }
     public Item getItem(Item item2) {
         return item;
     }
@@ -265,7 +266,7 @@ public void setName(String name) {
     }
     public ArrayList<Perk> getPerks() {
         return perks;
-    }
+    }   
     public synchronized void perkPicker() { //allows the player to pick a perk from the list of available perks
         this.perkpicked = false;
         while(!perkpicked) {
@@ -287,7 +288,7 @@ public void setName(String name) {
         
     }
     game.getGUI().printToJTextPane("No further perks unlocked.");
-}   
+}
     public String getOptional() {
         return optional;
     }
@@ -424,9 +425,6 @@ public void setName(String name) {
     }
     public void setMaturity(int maturity) {
         this.maturity = maturity;
-    }
-    public static Room getCurrentRoom() {
-        return currentRoom;
     }
     public void upgrade(Perk perk2) {    //upgrades the player's SMILE stats based on the perk they have chosen
         switch(perk2.getName().toLowerCase()) {
@@ -694,7 +692,7 @@ public void setName(String name) {
         }
     doCRAFT();
     }
-public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a message if they have. and then sets the CRAFT to the player's CRAFT array
+    public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a message if they have. and then sets the CRAFT to the player's CRAFT array
         int i=0;
         for(int s : SMILE){
             switch(i){
@@ -762,7 +760,7 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
     public void setHunger(int i) {
         this.hunger = i;
     }
-    public void bldderFull(int i) { //checks if the player's bladder is full and if it is, empties the bladder and makes the player potty
+    public void bladderFull(int i) { //checks if the player's bladder is full and if it is, empties the bladder and makes the player potty
         this.bladder += i;
         if(this.bladder >= 100){
             this.bladder = 0;
@@ -779,7 +777,6 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
     public String[] getCRAFT() {
         return CRAFT;
     }
-
     public boolean isPerkpicked() {
         return perkpicked;
     }
@@ -957,13 +954,13 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
             }
         }
     }
-    int getHunger() {
+    public int getHunger() {
         return this.hunger;
     }
-    int getThirst() {
+    public int getThirst() {
         return this.thirst;
     }
-    Item getItemByName(String itemName) {
+    public Item getItemByName(String itemName) {
         for(Item items : inventory) {
             if(items.getName().equals(itemName)) {
                 return items;
@@ -971,21 +968,21 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
         }
         return null;    
     }
-    ArrayList<Item> getArrayInventory() { 
+    public ArrayList<Item> getArrayInventory() { 
         return this.inventory;
     }
-    void setCurrentRoom(Room room) {
+    public void setCurrentRoom(Room room) {
         currentRoom = room;
     }
-    void putItem(Item item, Item containerByName) {
+    public void putItem(Item item, Item containerByName) {
         containerByName.addItem(item);
         this.inventory.remove(item);
     }
-   void throwAway(Item item) {
+    public void throwAway(Item item) {
     this.inventory.remove(item);
     currentRoom.getItemByName("Trash Can").addItem(item);
 }
-    void potty(Room room) {
+public void potty(Room room) {
         if(this.equipment[2] == null) {
             game.getGUI().printToJTextPane("You went potty in "+ getCurrentRoom().getName());
             currentRoom.getArrayInventory().add(makePuddle());
@@ -1047,7 +1044,7 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
             }
         }
     }
-   void eatDrink() throws FileNotFoundException {
+    public  void eatDrink() throws FileNotFoundException {
     if(getItemByType("food")==null){
         game.getGUI().printToJTextPane("You have nothing to eat or drink.");
         return;
@@ -1056,7 +1053,7 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
     getItemByType("food").use(this, game);
     getItemByType("drink").use(this, game);
 }
-    void reflect() { //player must reflect on their day to end the day and age up.
+public  void reflect() { //player must reflect on their day to end the day and age up.
         game.getGUI().printToJTextPane("You reflect on your day.");
         this.addResilience(9);
         this.addExperience(5);
@@ -1064,18 +1061,24 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
         game.getGUI().printToJTextPane( this.age + " years old.");
         game.getGUI().printToJTextPane( "You are " + this.getMaturity() + "mature.");
     }
-    void setThirst(int i) {
+    public  void setThirst(int i) {
         this.thirst = i;
     }
-    void playedWith(Item aThis) {
+    public  void playedWith(Item aThis) {
         game.getGUI().printToJTextPane("You played with the " + aThis.getName());
         this.addResilience(5);
         this.addExperience(6);
         this.game.endTurn();
         
     }
-    void removeItem(Item item) {
+    public  void removeItem(Item item) {
         this.inventory.remove(item);
+    }
+    /**
+     * @param cost
+     */
+    public  void removeMoney(int cost) {
+        this.money -= cost;
     }
     private void generatePerks() { //generates the perks for the player, some are locked and some are unlocked
         Perk performer = new Perk("Performer", "You are a performer.",0,0);
@@ -1117,7 +1120,6 @@ public void doCRAFT() { //checks if the player has unlocked a CRAFT and prints a
     private int getLevel() {
 return this.level;
     }
-
     private void listPerks() { //lists the perks that that can be chosen by the player at the beginning of the game
         for(Perk perk : perks) {
             if(perk.getCost()==0){
@@ -1125,7 +1127,6 @@ return this.level;
         }
     }
     }
-
     private String slotWord(int index) { //returns the slot word for the equipment slot based on the index
         return switch (index) {
             case 0 -> "Head: ";
@@ -1136,7 +1137,6 @@ return this.level;
             default -> "Unknown: ";
         };
     }
-
     private Item getItemByType(String type) {
         for(Item item1 : inventory) {
             if(item1.getType().equals(type)) {
@@ -1145,36 +1145,25 @@ return this.level;
         }
         return null;
     }
-
-    
-
     private Item makePuddle() { //makes a puddle of pee item when the player goes potty in the room
         Item puddles = new Item("Puddle of pee", "A puddle of pee.", "mess", game);
         puddles.setTakeable(false);
         return puddles;
         
     }
-
-    private void setCRAFT(String[] string) {
+	private void setCRAFT(String[] string) {
         this.CRAFT = string;
     }
-
-	private boolean maxLevel(int index ) {
+    private boolean maxLevel(int index ) {
      return this.SMILE[index] > this.getAge();   
     }
-
     private void checkMaturity() {
         if(this.maturity >= this.age){
             this.maturity = 0;
             this.ageUp();
         }
     }
-
     private void ageUp() {
         this.age += 1;
-    }
-
-    void removeMoney(int cost) {
-        this.money -= cost;
     }
 }

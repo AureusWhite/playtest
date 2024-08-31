@@ -1,8 +1,12 @@
-A soothing, harmonic but artificial voice gently beckons you to awaken. As you blink your newly minted eyes open, you see an android about three feet tall, covered in soft fur and looking just like a cuddly teddy bear. "Honey, you might be confused and not remember where you are," the surprisingly soft android says, wrapping its surprisingly strong arms around you and cooing in a melodic, sing-song tone. "You're safe. Fuzzy is here if you need me. Just tell me when you're ready to get dressed. Don't worry, my eyes are turned off."
+<p style="font-size: 18px; color: #511e6e;"> A soothing, harmonic but artificial voice gently beckons you to awaken. As you blink your newly minted eyes open, you see an android about three feet tall, covered in soft fur and resembling a cuddly teddy bear.
 
-The android acts silly, pretending he can't see. He bumps into a table, making you giggle, and then wheels off to give you some space. You eventually get up, and with a little help from Fuzzy, manage to get dressed.
+"Honey, you might be confused and not remember where you are," the surprisingly soft android says, wrapping its surprisingly strong arms around you and cooing in a melodic, sing-song tone. "You're safe. Fuzzy is here if you need me. Just tell me when you're ready to get dressed. Don't worry, my eyes are turned off."
+
+The android acts silly, pretending he can't see. He bumps into a table, making you giggle, and then wheels off to give you some space. Eventually, you get up, and with a little help from Fuzzy, manage to get dressed.
 
 "Don't worry, everyone has trouble with the buttons at first," Fuzzy reassures you with a gentle smile.
 
-Fuzzy's LCD screen displays a happy face, and then he prints out a shiny gold star from his finger, placing it on your hand with a flick. Dressed and adorned with your gold star, you walk hand-in-hand with your new fuzzy friend through this strange new place. Maybe your memory will return, but for now, you're a child again, filled with the wonder of a brave new world. And maybe, just maybe, you don't want to spoil it by remembering too quickly.
- 
+Fuzzy's LCD screen displays a happy face, and then he prints out a shiny gold star from his finger, placing it on your hand with a flick. Dressed and adorned with your gold star, you walk hand-in-hand with your new fuzzy friend through this strange new place.
+
+Maybe your memory will return, but for now, you're a child again, filled with the wonder of a brave new world. And maybe, just maybe, you don't want to spoil it by remembering too quickly.
+</p>

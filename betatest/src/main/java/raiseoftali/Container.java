@@ -40,7 +40,6 @@ public class Container extends Item{
     public void close() {   //closes the container, only closed containers can be locked
         if(this.getType().equalsIgnoreCase("container")) {
            game.getGUI().printToJTextPane("You closed the "+ this.getName());
-           this.setLocked(true);
         } else {
            game.getGUI().printToJTextPane("You can't close that");
         }

@@ -16,12 +16,8 @@ public class Item {
     private ArrayList<Item> items = new ArrayList<>();
     private final  int slot;
     private boolean isBroken;
-    public boolean isBroken() { //returns true if the item is broken
-        return isBroken;
-    }
-    public void setBroken(boolean isBroken) {
-        this.isBroken = isBroken;
-    }
+    private boolean isquestItem;
+    private boolean droppable = true;
     public Item(String name, String description, String type, Game game) {
         this.name = name;
         this.description = description;
@@ -31,6 +27,15 @@ public class Item {
         this.game = game;
         doTakeable();
     }
+    public void setDroppable(boolean droppable) {
+        this.droppable = droppable;
+    }
+    public boolean isBroken() { //returns true if the item is broken
+        return isBroken;
+    }
+    public void setBroken(boolean isBroken) {
+        this.isBroken = isBroken;
+    }
     public boolean isTakeable() {
         return takeable;
     }
@@ -39,9 +44,6 @@ public class Item {
     }
     public boolean isLocked() {
         return locked;
-    }
-    public void setLocked(boolean locked) {
-        this.locked = locked;
     }
     public ArrayList<Item> getItems() {
         return items;
@@ -73,15 +75,13 @@ public class Item {
                 this.test(player);
             }
             case "tool" ->{
-                this.useTool(player, Player.currentRoom.findBrokenItem(player));
             }
             case "book" ->{
                 this.read(player);
             }
             case "money" ->{
                 player.getGame().getGUI().printToJTextPane( "These shiny pennies are used to buy things. You have " + player.getMoney() + " shiny pennies.");
-            }
-            
+            }    
         }
     }
     public String getType() {
@@ -107,6 +107,14 @@ public class Item {
             }
         }
     }
+    public void giveItem(Player player, Item item, int cost) {
+        if(player.getMoney() < cost){
+            game.getGUI().printToJTextPane( "You don't have enough money to buy the " + item.getName() + "!");
+            return;
+        }
+        player.removeMoney(cost);
+        player.addItem(item);
+    }
     void addItem(Item item) { //adds an item to the items list
         if(this.items == null) {
             this.items = new ArrayList<>();
@@ -114,6 +122,21 @@ public class Item {
         this.items.add(item);
     game.getGUI().printToJTextPane("You put the " + item.getName() + " in the " + this.getName());
     }
+
+    boolean isQuestItem() {
+        return isquestItem;
+    }
+
+    void setQuestItem(boolean b) {
+        this.isquestItem = b;
+    }
+
+    
+    public boolean isDroppable() {
+        return droppable;
+    }
+
+
     private void doTakeable() { //sets the takeable variable based on the type of the item
         if(this.type.equalsIgnoreCase("container")) {
             this.takeable = false;
@@ -173,49 +196,23 @@ public class Item {
 
 }
 
-    private void useTool(Player player, Item brokenItem) { //uses the tool to fix a broken item
-        if(brokenItem != null){
-           if (player.getItemByName(brokenItem.getName()) != null){
-                game.getGUI().printToJTextPane( "You use the " + this.getName() + " to fix the " + brokenItem.getName() + "!");
-                player.addExperience(10);
-                player.addResilience(10);
-                brokenItem.isBroken = false;
-              } else {
-                game.getGUI().printToJTextPane( "You don't have the " + brokenItem.getName() + " to fix!");
-           }
-
-            
-        }
-    }
-
     private void read(Player player) throws FileNotFoundException { //reads the book and gives the player experience
         try (FileReader fileReader = new FileReader(this.getName() + ".txt")) {
             fileReader.toString();
         } catch (FileNotFoundException e) {
             throw e;
         } catch (IOException e) {
-            e.printStackTrace();
         }
         game.getGUI().printToJTextPane( "You read the " + this.getName() + " and learn something new!");
         player.addExperience(10);
 
     }
 
-
     private void breakItem(Player player) { //breaks the item and removes it from the player's inventory.
         game.getGUI().printToJTextPane( "The " + this.getName() + " breaks!");
         this.isBroken = true;
         player.dropItem(this);
         player.addResilience(-25);
-    }
-
-    public void giveItem(Player player, Item item, int cost) {
-        if(player.getMoney() < cost){
-            game.getGUI().printToJTextPane( "You don't have enough money to buy the " + item.getName() + "!");
-            return;
-        }
-        player.removeMoney(cost);
-        player.addItem(item);
     }
 }
 

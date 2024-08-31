@@ -62,7 +62,7 @@ public class Game {
         if(fileName.createNewFile()){
             FileWriter fw = new FileWriter(fileName);
             try (BufferedWriter bw = new BufferedWriter(fw)) {
-                bw.write("<html> <h1><center><Strong>"+room.getName()+"</h1></center></Stong><p style=\"font-size: 24;\">"+room.getDescription()+"</font><h2> Room Details </h2>"+room.getType()+"<br><br><Strong> Items in room</Strong><br>"+room.listItems()+"<br><Strong>People in room</Strong><br>"+room.listPeople()+"<br><br></html>");
+                bw.write("<html> <h1><center><Strong>"+room.getName()+"</h1></center></Stong><p style=\"font-size: 16;\">"+room.getDescription()+"</font><h2> Room Details </h2>"+room.getType()+"<br><br><Strong> Items in room</Strong><br>"+room.listItems()+"<br><Strong>People in room</Strong><br>"+room.listPeople()+"<br><br></html>");
             }
         }
     }
